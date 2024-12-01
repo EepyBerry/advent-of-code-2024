@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-export abstract class BaseChallenge {
+export abstract class BasePuzzle {
 
     input: string = ''
 

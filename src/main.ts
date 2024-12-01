@@ -1,5 +1,5 @@
-import { BaseChallenge } from './challenges/base-challenge.ts'
-import challenges from './challenges/index.ts'
+import { BasePuzzle } from './puzzles/base-puzzle.ts'
+import challenges from './puzzles/index.ts'
 
 console.log(`
                _   ★             _            __    _____          _     
@@ -16,7 +16,7 @@ console.log(`
   *........................   |              https://github.com/EepyBerry
   `)
 setTimeout(() => {
-    challenges.forEach((c: BaseChallenge) => c.run())
+    challenges.forEach((c: BasePuzzle) => c.run())
     console.log(`
     
         _                                                         _   
