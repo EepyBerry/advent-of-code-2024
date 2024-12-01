@@ -5,4 +5,4 @@
 </p>
 My solutions for the Advent of Code event :3
 
-Do whatever you want with the contents, [License file](LICENSE) here!
+Do whatever you want with the contents, [license file here!](LICENSE)
