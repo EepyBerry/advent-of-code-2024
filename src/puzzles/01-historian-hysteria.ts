@@ -10,18 +10,17 @@ export default class Puzzle1 extends BasePuzzle {
     this.loadInput('01')
     if (!this.input) return
 
-    console.log('\n')
-    console.log('   ______________________________________________________________________ ')
-    console.log(`  /                                                                      \\`)
-    console.log(`  ⎸   ★                  Day 1: Historian Hysteria                       ⎹`)
-    console.log('  ⎸                          _    ______    _                 ★          ⎹')
-    console.log('  ⎸                 ★       (_)  |______|  (_)                           ⎹')
-    console.log(`  ⎸                                                                      ⎹`)
+    console.log('\n   _____________________________________________________________________ ')
+    console.log(`  /                                                                     \\`)
+    console.log(`  ⎸   ★                  Day 1: Historian Hysteria                      ⎹`)
+    console.log('  ⎸                          _    ______    _                 ★         ⎹')
+    console.log('  ⎸                 ★       (_)  |______|  (_)                          ⎹')
+    console.log(`  ⎸                                                                     ⎹`)
     this.setup()
     this.partOne()
     this.partTwo()
     this.input = ''
-    console.log('  \\______________________________________________________________________/')
+    console.log('  \\_____________________________________________________________________/')
   }
 
   protected setup(): void {
