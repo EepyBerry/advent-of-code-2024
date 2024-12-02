@@ -1,4 +1,3 @@
-import { formatPuzzleAnswer } from "../utils.ts";
 import { BasePuzzle } from "./base-puzzle.ts";
 
 export default class Puzzle1 extends BasePuzzle {
@@ -9,6 +8,7 @@ export default class Puzzle1 extends BasePuzzle {
   run(): void {
     this.loadInput('01')
     if (!this.input) return
+    this.setup()
 
     console.log('\n   _____________________________________________________________________ ')
     console.log(`  /                                                                     \\`)
@@ -16,10 +16,8 @@ export default class Puzzle1 extends BasePuzzle {
     console.log('  ⎸                          _    ______    _                 ★         ⎹')
     console.log('  ⎸                 ★       (_)  |______|  (_)                          ⎹')
     console.log(`  ⎸                                                                     ⎹`)
-    this.setup()
-    this.partOne()
-    this.partTwo()
-    this.input = ''
+    console.log(`  ⎸ Distance between lists:      ${this.partOne().toString().padEnd(38, ' ')} ⎹`)
+    console.log(`  ⎸ Similarity score:            ${this.partTwo().toString().padEnd(38, ' ')} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
 
@@ -35,13 +33,11 @@ export default class Puzzle1 extends BasePuzzle {
     this.rightList.sort()
   }
 
-  protected partOne(): void {
-    const answer = this.rightList.reduce((acc, cur, idx) => acc += Math.abs(cur - this.leftList[idx]), 0)
-    console.log(formatPuzzleAnswer('Distance between the lists: ', answer))
+  protected partOne(): number {
+    return this.rightList.reduce((acc, cur, idx) => acc += Math.abs(cur - this.leftList[idx]), 0)
   }
 
-  protected partTwo(): void {
-    const answer = this.leftList.reduce((acc, cur) => acc += cur * this.rightList.filter(nr => nr === cur).length, 0)
-    console.log(formatPuzzleAnswer('Similarity score: ', answer))
+  protected partTwo(): number {
+    return this.leftList.reduce((acc, cur) => acc += cur * this.rightList.filter(nr => nr === cur).length, 0)
   }
 }

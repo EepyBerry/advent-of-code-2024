@@ -13,6 +13,6 @@ export abstract class BasePuzzle {
     }
 
     public abstract run(): void
-    protected abstract partOne(): void
-    protected abstract partTwo(): void
+    protected abstract partOne(): number
+    protected abstract partTwo(): number
 }

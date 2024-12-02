@@ -12,8 +12,8 @@ console.log(`
   (https://adventofcode.com) - Eric Wastl                        >>> 2024
   _______________________________________________________________________
                               |  
-  Stars collected:  02 / 50   |                         Code by EepyBerry
-  *........................   |              https://github.com/EepyBerry
+  Stars collected:  04 / 50   |                         Code by EepyBerry
+  **.......................   |              https://github.com/EepyBerry
   `)
 setTimeout(() => {
     challenges.forEach((c: BasePuzzle) => c.run())
