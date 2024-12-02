@@ -21,9 +21,7 @@ export default class Puzzle2 extends BasePuzzle {
   }
 
   protected setup(): void {
-    this.reports = this.input.split('\n')
-      .filter(l => l.length > 1)
-      .map(rep => rep.split(' ').map(n => parseInt(n)))
+    this.reports = this.input.map(rep => rep.split(' ').map(n => parseInt(n)))
   }
 
   protected partOne(): number {

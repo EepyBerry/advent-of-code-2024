@@ -22,13 +22,10 @@ export default class Puzzle1 extends BasePuzzle {
   }
 
   protected setup(): void {
-    let lines: string[] = this.input.split('\n')
-    lines.forEach(l => {
+    this.input.forEach(l => {
       this.leftList.push(parseInt(l.split('   ')[0]))
       this.rightList.push(parseInt(l.split('   ')[1]))
     })
-    this.leftList.pop()
-    this.rightList.pop()
     this.leftList.sort()
     this.rightList.sort()
   }
