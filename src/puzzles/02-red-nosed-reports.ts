@@ -27,33 +27,19 @@ export default class Puzzle2 extends BasePuzzle {
   }
 
   protected partOne(): number {
-    const answer = this.reports.filter(rep => this.isReportSafe(rep)).length
-    return answer
+    return this.reports.filter(rep => this.isReportSafe(rep)).length
   }
 
   protected partTwo(): number {
-    let answer = 0
-    this.reports.forEach(rep => {
-      
-      // Immediatly return fully safe reports
-      if (this.isReportSafe(rep)) {
-        answer++
-        return
-      }
-      // Brute-force remaining reports, 'cause f*ck those engineers
-      for (let i = 0; i < rep.length; i++) {
-        let slicedRep = rep.toSpliced(i, 1)
-        if (this.isReportSafe(slicedRep)) {
-          answer++
-          return
-        }
-      }
-    })
-    return answer
+    return this.reports.filter(rep => this.isReportSafe(rep) || this.isReportDampable(rep)).length
   }
 
   private isReportSafe(rep: number[]): boolean {
     return rep.every((n, idx, arr) => idx === 0 || (arr[idx-1] < n && n - arr[idx-1] <= 3)) // at the start || (increasing && diff <= 3)
       || rep.every((n, idx, arr) => idx === 0 || (arr[idx-1] > n && arr[idx-1] - n <= 3))   // at the start || (decreasing && diff <= 3)
+  }
+
+  private isReportDampable(rep: number[]): boolean {
+    return rep.some((_n, idx, arr) => this.isReportSafe(arr.toSpliced(idx, 1)))
   }
 }
