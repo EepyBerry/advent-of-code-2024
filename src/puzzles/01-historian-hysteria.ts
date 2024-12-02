@@ -1,3 +1,4 @@
+import { toAnswerString } from "../utils.ts";
 import { BasePuzzle } from "./base-puzzle.ts";
 
 export default class Puzzle1 extends BasePuzzle {
@@ -16,8 +17,8 @@ export default class Puzzle1 extends BasePuzzle {
     console.log('  ⎸                          _    ______    _                 ★         ⎹')
     console.log('  ⎸                 ★       (_)  |______|  (_)                          ⎹')
     console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Distance between lists:      ${this.partOne().toString().padEnd(38, ' ')} ⎹`)
-    console.log(`  ⎸ Similarity score:            ${this.partTwo().toString().padEnd(38, ' ')} ⎹`)
+    console.log(`  ⎸ Distance between lists:      ${toAnswerString(this.partOne())} ⎹`)
+    console.log(`  ⎸ Similarity score:            ${toAnswerString(this.partTwo())} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
 
