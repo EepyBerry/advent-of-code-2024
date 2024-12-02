@@ -15,8 +15,8 @@ export default class Puzzle2 extends BasePuzzle {
     console.log('  ⎸          ★               _    ______    _                           ⎹')
     console.log('  ⎸                         (_)  |______|  (_)                     ★    ⎹')
     console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ N° of safe reports:          ${this.partOne().toString().padEnd(38, ' ')} ⎹`)
-    console.log(`  ⎸ N° of safe-ish reports:      ${this.partTwo().toString().padEnd(38, ' ')} ⎹`)
+    console.log(`  ⎸ Nb of safe reports:          ${this.partOne().toString().padEnd(38, ' ')} ⎹`)
+    console.log(`  ⎸ Nb of safe-ish reports:      ${this.partTwo().toString().padEnd(38, ' ')} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
 
