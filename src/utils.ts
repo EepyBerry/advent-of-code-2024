@@ -26,9 +26,7 @@ export function countMatches(str: string, rgx: RegExp) {
  * 
  * If necessary, you can specify the tokensto use in the following order, using the `tokens` property: `replace`,`patch`
  * 
- * @remarks Default tokens are as follows:
- * - `%`: replaced by each replacement letter in the replacement string, in order of appearance
- * - `#`: replaced by the given replacement value
+ * @remarks Default tokens are as follows: `%#`
  */
 type XBRgxOptions = {
   replace?: any;
@@ -39,10 +37,10 @@ type XBRgxOptions = {
 /**
  * eXtended Build ReGeX: creates a RegExp instance with the given options
  * @see {@link XBRgxOptions}
- * @param base 
- * @param tokens 
- * @param replacements 
- * @returns 
+ * @param base base regex string **without flags**
+ * @param replacements XBRgxOptions object with necessary data
+ * @param tokens (*optional*) tokens to use for building
+ * @returns the parsed and built RegExp isntance
  */
 export function xbRgx(base: string, replacements: XBRgxOptions, flags: string = 'g'): RegExp {
   let parsed: string = '';
