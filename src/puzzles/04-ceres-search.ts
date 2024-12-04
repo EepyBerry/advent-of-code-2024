@@ -4,11 +4,8 @@ import { BasePuzzle } from "./base-puzzle.ts";
 export default class Puzzle4 extends BasePuzzle {
 
   private grid: string = ''
-
-  private fwdRgx: string = '(?=(X).{#}(M).{#}(A).{#}(S))' // '#' token replaced with skip length
-  private revRgx: string = '(?=(S).{#}(A).{#}(M).{#}(X))' // '#' token replaced with skip length
-
-  private crossRgx: string = '(?=(%).(%).{#}(%).{#}(%).(%))' // '%' tokens replaced with ordered letter matches, '#' token replaced with skip length
+  private p1rgx: string = '(?=(%).{#}(%).{#}(%).{#}(%))'
+  private p2rgx: string = '(?=(%).(%).{#}(%).{#}(%).(%))'
 
   run(): void {
     this.loadInput('04')
@@ -33,24 +30,24 @@ export default class Puzzle4 extends BasePuzzle {
   protected partOne(): number {
     const ll = this.input[0].length-1
     return [
-      countRgxMatches(this.grid, xbRgx(this.fwdRgx, { replace: 0 }, 'gs')),
-      countRgxMatches(this.grid, xbRgx(this.revRgx, { replace: 0 }, 'gs')),
-      countRgxMatches(this.grid, xbRgx(this.fwdRgx, { replace: ll }, 'gs')),
-      countRgxMatches(this.grid, xbRgx(this.revRgx, { replace: ll }, 'gs')),
-      countRgxMatches(this.grid, xbRgx(this.fwdRgx, { replace: ll+1 }, 'gs')),
-      countRgxMatches(this.grid, xbRgx(this.fwdRgx, { replace: ll-1 }, 'gs')),
-      countRgxMatches(this.grid, xbRgx(this.revRgx, { replace: ll+1 }, 'gs')),
-      countRgxMatches(this.grid, xbRgx(this.revRgx, { replace: ll-1 }, 'gs')),
+      countRgxMatches(this.grid, xbRgx(this.p1rgx, { replace: 0, patch: 'XMAS' }, 'gs')),
+      countRgxMatches(this.grid, xbRgx(this.p1rgx, { replace: 0, patch: 'SAMX' }, 'gs')),
+      countRgxMatches(this.grid, xbRgx(this.p1rgx, { replace: ll, patch: 'XMAS' }, 'gs')),
+      countRgxMatches(this.grid, xbRgx(this.p1rgx, { replace: ll, patch: 'SAMX' }, 'gs')),
+      countRgxMatches(this.grid, xbRgx(this.p1rgx, { replace: ll+1, patch: 'XMAS' }, 'gs')),
+      countRgxMatches(this.grid, xbRgx(this.p1rgx, { replace: ll-1, patch: 'XMAS' }, 'gs')),
+      countRgxMatches(this.grid, xbRgx(this.p1rgx, { replace: ll+1, patch: 'SAMX' }, 'gs')),
+      countRgxMatches(this.grid, xbRgx(this.p1rgx, { replace: ll-1, patch: 'SAMX' }, 'gs')),
     ].reduce((cur, acc) => acc += cur, 0)
   }
 
   protected partTwo(): number {
     const ll = this.input[0].length-1
     return [
-      countRgxMatches(this.grid, xbRgx(this.crossRgx, { replace: ll-1, patch: 'MMASS' }, 'gs')),
-      countRgxMatches(this.grid, xbRgx(this.crossRgx, { replace: ll-1, patch: 'MSAMS' }, 'gs')),
-      countRgxMatches(this.grid, xbRgx(this.crossRgx, { replace: ll-1, patch: 'SMASM' }, 'gs')),
-      countRgxMatches(this.grid, xbRgx(this.crossRgx, { replace: ll-1, patch: 'SSAMM' }, 'gs')),
+      countRgxMatches(this.grid, xbRgx(this.p2rgx, { replace: ll-1, patch: 'MMASS' }, 'gs')),
+      countRgxMatches(this.grid, xbRgx(this.p2rgx, { replace: ll-1, patch: 'MSAMS' }, 'gs')),
+      countRgxMatches(this.grid, xbRgx(this.p2rgx, { replace: ll-1, patch: 'SMASM' }, 'gs')),
+      countRgxMatches(this.grid, xbRgx(this.p2rgx, { replace: ll-1, patch: 'SSAMM' }, 'gs')),
     ].reduce((cur, acc) => acc += cur, 0)
   }
 }

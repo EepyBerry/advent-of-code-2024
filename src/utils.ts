@@ -1,22 +1,22 @@
 export function setCharAt(str: string, index: number, chr: string) {
   if(index > str.length-1) {
-    return str
+    return str;
   }
-  return str.substring(0,index) + chr + str.substring(index+1)
+  return str.substring(0,index) + chr + str.substring(index+1);
 }
 
 export function toAnswerString(n: number) {
-  return numberPadEnd(n, 38, ' ')
+  return numberPadEnd(n, 38, ' ');
 }
 
 export function numberPadEnd(n: number, width: number, pad: string) {
-  return n.toString().padEnd(width, pad)
+  return n.toString().padEnd(width, pad);
 }
 
 // --------------------------------------------------------------------------------------------------------------------
 
 export function countRgxMatches(str: string, rgx: RegExp) {
-  return [...str.matchAll(rgx)].length
+  return [...str.matchAll(rgx)].length;
 }
 
 /**
@@ -31,13 +31,14 @@ export function countRgxMatches(str: string, rgx: RegExp) {
  * - `#`: replaced by the given replacement value
  */
 type XBRgxOptions = {
-  replace?: any
-  patch?: string
-  tokens?: string
+  replace?: any;
+  patch?: string;
+  tokens?: string;
 }
 
 /**
  * eXtended Build ReGeX: creates a RegExp instance with the given options
+ * @see {@link XBRgxOptions}
  * @param base 
  * @param tokens 
  * @param replacements 
