@@ -15,7 +15,7 @@ export function numberPadEnd(n: number, width: number, pad: string) {
 
 // --------------------------------------------------------------------------------------------------------------------
 
-export function countRgxMatches(str: string, rgx: RegExp) {
+export function countMatches(str: string, rgx: RegExp) {
   return [...str.matchAll(rgx)].length;
 }
 
