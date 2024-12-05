@@ -10,7 +10,7 @@ export abstract class BasePuzzle {
         .split('\n')
         .filter(l => l.length > 1)
     } catch(err) {
-      console.error('Could not load ' + file)
+      console.error('  [ERROR] Could not load ' + file)
     }
   }
 
@@ -19,7 +19,7 @@ export abstract class BasePuzzle {
       this.input = fs.readFileSync(`src/_inputs/${file}.txt`, 'utf8')
         .split('\n')
     } catch(err) {
-        console.error('Could not load ' + file)
+        console.error('  [ERROR] Could not load ' + file)
     }
   }
 

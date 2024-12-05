@@ -8,7 +8,9 @@ export default class Puzzle1 extends BasePuzzle {
 
   run(): void {
     this.loadInput('01')
-    if (!this.input) return
+    if (this.input?.length === 0) {
+      return
+    }
     this.setup()
 
     console.log('\n   _____________________________________________________________________ ')
