@@ -1,7 +1,5 @@
-import { countMatches, toAnswerString, xbRgx } from "../utils.ts";
+import { toAnswerString } from "../utils.ts";
 import { BasePuzzle } from "./base-puzzle.ts";
-
-type TreeNode = { value: any, children?: TreeNode[] }
 
 export default class Puzzle5 extends BasePuzzle {
 
@@ -37,18 +35,38 @@ export default class Puzzle5 extends BasePuzzle {
   }
 
   protected partOne(): number {
-    return this.updates.filter(u => {
-      let updateRules = this.rules.filter(p => u.includes(p[0]) && u.includes(p[1]))
-      return this.isUpdateOrdered(u, updateRules)
-    }).reduce((acc, cur) => acc += parseInt(cur[Math.floor(cur.length / 2)]), 0)
+    return this.updates
+      .filter(u => this.isUpdateOrdered(u))
+      .reduce((acc, cur) => acc += parseInt(cur[Math.floor(cur.length / 2)]), 0)
   }
 
   protected partTwo(): number {
-    return 0
+    return this.updates
+      .filter(u => !this.isUpdateOrdered(u))
+      .map(u => this.orderUpdate(u))
+      .reduce((acc, cur) => acc += parseInt(cur[Math.floor(cur.length / 2)]), 0)
   }
 
-  private isUpdateOrdered(update: string[], rules: string[][]) {
-    console.log(rules)
+  private isUpdateOrdered(update: string[]): boolean {
+    const rules = this.getRelevantRules(update)
     return update.every((v, idx , arr) => rules.filter(r => r[0] === v).length === arr.length - 1 - idx)
+  }
+
+  private orderUpdate(update: string[]): string[] {
+    const numOccurs: { v: string, c: number }[] = []
+    this.getRelevantRules(update)
+      .map(r => r[0])
+      .sort((a, b) => parseInt(b) - parseInt(a))
+      .forEach(v => {
+        const oIdx = numOccurs.findIndex(o => o.v === v)
+        if (oIdx >= 0) numOccurs[oIdx].c++
+        else numOccurs.push({ v, c: 1 })
+      })
+    numOccurs.push({ v: update.find(v => !(numOccurs.map(o => o.v)).includes(v))!, c: 1 })
+    return numOccurs.sort((a, b) => b.c - a.c).map(o => o.v)
+  }
+
+  private getRelevantRules(update: string[]) {
+    return this.rules.filter(p => update.includes(p[0]) && update.includes(p[1]))
   }
 }
