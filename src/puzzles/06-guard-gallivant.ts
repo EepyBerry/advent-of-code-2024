@@ -25,25 +25,18 @@ export default class Puzzle5 extends BasePuzzle {
 
   protected setup(): void {
     this.grid = this.input.map(l => l.replaceAll('\r', '').split(''))
-    for (let i = 0; i < this.grid.length; i++) {
-      if (!this.grid[i].includes('^')) continue
-      this.startingPosition[1] = i
-      this.startingPosition[0] = this.grid[i].findIndex(l => l === '^')
-      break
-    }
+    const startingY = this.grid.findIndex(row => row.includes('^'))
+    this.startingPosition[1] = startingY
+    this.startingPosition[0] = this.grid[startingY].findIndex(l => l === '^')
   }
 
   protected partOne(): number {
-    let gridCopy = deepClone(this.grid)
-    const answer = this.runPatrol(gridCopy, deepClone(this.startingPosition)).length
-    this.logGrid(gridCopy)
-    return answer
+    return this.runPatrol(deepClone(this.grid), deepClone(this.startingPosition)).length
   }
 
   protected partTwo(): number {
     let gridCopy = deepClone(this.grid)
     const positions = this.runPatrol(gridCopy, deepClone(this.startingPosition))
-
     return positions.slice(1).filter((pos) => {
       gridCopy = deepClone(this.grid)
       gridCopy[pos[1]][pos[0]] = 'O'
@@ -57,7 +50,7 @@ export default class Puzzle5 extends BasePuzzle {
     const distinctPositions: number[][] = []
     let targetPos: number[] = [],
         dirIdx = 0
-    let iterations = 0, maxIterations = 100000
+    let iterations = 0, maxIterations = 10000
     while (this.isPositionValid(curPos[0], curPos[1]) && iterations < maxIterations) {
       iterations++
       // count position if unmarked, else mark it
