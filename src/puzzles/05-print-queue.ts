@@ -19,8 +19,8 @@ export default class Puzzle5 extends BasePuzzle {
     console.log('  ⎸                          _    ______    _                           ⎹')
     console.log('  ⎸                     ★   (_)  |______|  (_)                          ⎹')
     console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Sum of middle numbers:       ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Nb of X-MAS occurrences:     ${toAnswerString(this.partTwo())} ⎹`)
+    console.log(`  ⎸ Sum of mid. numbers:         ${toAnswerString(this.partOne())} ⎹`)
+    console.log(`  ⎸ Sum of sorted mid. numbers:  ${toAnswerString(this.partTwo())} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
 
