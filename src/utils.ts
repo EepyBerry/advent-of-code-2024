@@ -13,6 +13,10 @@ export function numberPadEnd(n: number, width: number, pad: string) {
   return n.toString().padEnd(width, pad);
 }
 
+export function deepClone(obj: any) {
+  return JSON.parse(JSON.stringify(obj))
+}
+
 // --------------------------------------------------------------------------------------------------------------------
 
 export function countMatches(str: string, rgx: RegExp) {
