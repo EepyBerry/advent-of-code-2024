@@ -46,6 +46,8 @@ export default class Puzzle5 extends BasePuzzle {
       .map(u => this.orderUpdate(u))
       .reduce((acc, cur) => acc += parseInt(cur[Math.floor(cur.length / 2)]), 0)
   }
+  
+  // ----------------------------------------------------------------------------------------------
 
   private isUpdateOrdered(update: string[]): boolean {
     const rules = this.getRelevantRules(update)

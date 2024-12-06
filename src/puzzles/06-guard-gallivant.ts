@@ -6,6 +6,7 @@ export default class Puzzle5 extends BasePuzzle {
   private grid: string[][] = []
   private startingPosition: number[] = [0,0]
   private dirLoop = 'URDL'
+  private visitedDirChars = '↑→↓←'
 
   run(): void {
     this.loadInput('06e')
@@ -19,7 +20,7 @@ export default class Puzzle5 extends BasePuzzle {
     console.log('  ⎸       ★                 (_)  |______|  (_)       ★                  ⎹')
     console.log(`  ⎸                                                                     ⎹`)
     console.log(`  ⎸ Distinct positions:          ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Nb of X-MAS occurrences:     ${toAnswerString(this.partTwo())} ⎹`)
+    console.log(`  ⎸ Possible obstruction spots:  ${toAnswerString(this.partTwo())} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
 
@@ -29,35 +30,52 @@ export default class Puzzle5 extends BasePuzzle {
       if (!this.grid[i].includes('^')) continue
       this.startingPosition[1] = i
       this.startingPosition[0] = this.grid[i].findIndex(l => l === '^')
-      this.grid[this.startingPosition[1]][this.startingPosition[0]] === 'o'
       break
     }
     console.log(this.startingPosition)
   }
 
   protected partOne(): number {
-    let answer = 1
-    let dirIdx = 0
-    const curPos = Array(...this.startingPosition)
+    return this.runPatrol(this.startingPosition).length
+  }
+
+  protected partTwo(): number {
+    const positions = this.runPatrol(this.startingPosition)
+    return 0
+  }
+
+  // ----------------------------------------------------------------------------------------------
+
+  private runPatrol(curPos: number[]): number[][] {
+    const gridCopy = [...this.grid]
+    const distinctPositions: number[][] = []
+    let targetPos: number[] = [],
+        dirIdx = 0
     while (this.isPositionValid(curPos[0], curPos[1])) {
-      let targetPos: number[] = this.getNextPosition(curPos, dirIdx)
+      // count position if unmarked, else mark it
+      if (!this.visitedDirChars.includes(gridCopy[curPos[1]][curPos[0]])) {
+        distinctPositions.push([...curPos])
+        gridCopy[curPos[1]][curPos[0]] = this.visitedDirChars[dirIdx]
+      }
+
+      // break if next position is out of the grid
+      targetPos = this.getNextPosition(curPos, dirIdx)
+      if (!this.isPositionValid(targetPos[0], targetPos[1])) {
+        break;
+      }
+
       // if obstacle ahead, turn and recalculate target position
-      if (this.grid[targetPos[1]][targetPos[0]] === '#') {
+      if (gridCopy[targetPos[1]][targetPos[0]] === '#') {
         dirIdx = this.turnRight(dirIdx)
         targetPos = this.getNextPosition(curPos, dirIdx)
       }
-      // count position if unmarked, else mark it
-      if (this.grid[targetPos[1]][targetPos[0]] === 'o')
 
       // move
       curPos[0] = targetPos[0]
       curPos[1] = targetPos[1]
     }
-    return answer
-  }
-
-  protected partTwo(): number {
-    return 0
+    console.log(gridCopy.map(l => l.join('')).join('\n'))
+    return distinctPositions
   }
 
   private isPositionValid(x: number, y: number): boolean {

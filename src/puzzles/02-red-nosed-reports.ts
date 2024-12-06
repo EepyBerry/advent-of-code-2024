@@ -34,6 +34,8 @@ export default class Puzzle2 extends BasePuzzle {
   protected partTwo(): number {
     return this.reports.filter(rep => this.isReportSafe(rep) || this.isReportDampable(rep)).length
   }
+  
+  // ----------------------------------------------------------------------------------------------
 
   private isReportSafe(rep: number[]): boolean {
     return rep.every((n, idx, arr) => idx === 0 || (arr[idx-1] < n && n - arr[idx-1] <= 3)) // at the start || (increasing && diff <= 3)
