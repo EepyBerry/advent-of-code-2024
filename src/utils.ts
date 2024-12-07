@@ -13,6 +13,9 @@ export function patchString(str: string, patch: string, token: string = '#') {
   })
   return str
 }
+export function concatInts(a: number, b: number) {
+  return parseInt(a.toString() + b.toString())
+}
 
 // --------------------------------------------------------------------------------------------------------------------
 

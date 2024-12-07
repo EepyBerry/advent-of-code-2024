@@ -72,7 +72,6 @@ export default class Puzzle5 extends BasePuzzle {
 
         // if errorOnLoop is true, check if targetPos is already visited
         if (stopOnLoop && this.isPositionVisited(gridCopy, targetPos[0], targetPos[1]) && this.hasSameOrientation(gridCopy, targetPos[0], targetPos[1], dirIdx)) {
-          this.logGrid(gridCopy)
           return []
         }
       }
@@ -111,10 +110,5 @@ export default class Puzzle5 extends BasePuzzle {
       dirIdx = 0
     }
     return dirIdx
-  }
-
-  private logGrid(grid: string[][]) {
-    // console.log(grid.map(l => l.join('')).join('\n'))
-    // console.log('\n')
   }
 }
