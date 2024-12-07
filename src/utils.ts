@@ -4,14 +4,26 @@ export function setCharAt(str: string, index: number, chr: string) {
   }
   return str.substring(0,index) + chr + str.substring(index+1);
 }
-
 export function toAnswerString(n: number) {
   return numberPadEnd(n, 38, ' ');
 }
+export function patchString(str: string, patch: string, token: string = '#') {
+  [...str.matchAll(new RegExp(`${token}`, 'g'))].forEach((match, idx) => {
+    str = setCharAt(str, match.index, patch[idx])
+  })
+  return str
+}
+
+// --------------------------------------------------------------------------------------------------------------------
 
 export function numberPadEnd(n: number, width: number, pad: string) {
   return n.toString().padEnd(width, pad);
 }
+export function ntob(n: number, r: number, length: number) {
+  return n.toString(r).padStart(length, '0')
+}
+
+// --------------------------------------------------------------------------------------------------------------------
 
 export function deepClone(obj: any) {
   return JSON.parse(JSON.stringify(obj))

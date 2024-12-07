@@ -4,6 +4,7 @@ import Puzzle3 from "./03-mull-it-over.ts";
 import Puzzle4 from "./04-ceres-search.ts";
 import Puzzle5 from "./05-print-queue.ts";
 import Puzzle6 from "./06-guard-gallivant.ts";
+import Puzzle7 from "./07-bridge-repair.ts";
 
 export default [
     new Puzzle1(),
@@ -11,5 +12,6 @@ export default [
     new Puzzle3(),
     new Puzzle4(),
     new Puzzle5(),
-    new Puzzle6()
+    // new Puzzle6()
+    new Puzzle7()
 ]
