@@ -1,5 +1,5 @@
 import { BasePuzzle } from './puzzles/base-puzzle.ts'
-import challenges from './puzzles/index.ts'
+import puzzles from './puzzles/index.ts'
 
 console.log(`
                _   ★             _            __    _____          _     
@@ -12,11 +12,39 @@ console.log(`
   (https://adventofcode.com) - Eric Wastl                        >>> 2024
   _______________________________________________________________________
                              |                                           
-  Stars collected:  12 / 50  |                          Code by EepyBerry
-  ★★★★★★                     |               https://github.com/EepyBerry
+  Stars collected:  14 / 50  |                          Code by EepyBerry
+  ★★★★★★★                    |               https://github.com/EepyBerry
   `)
+
+let fullRun = false
+const curDate = new Date()
+if (curDate > new Date('2024-12-25')) {
+  console.warn(`
+  ★ -------------------- Mysterious Puzzle Guardian ------------------- ★
+  |                                                                     |
+  |  Seems like the 2024 holidays have passed...                        |
+  |  The Historians will compile each day\'s results for you!            |
+  |                                                                     |
+  ★ ------------------------------------------------------------------- ★
+    `)
+  fullRun = true
+} else {
+  console.warn(`
+  ★ -------------------[ Mysterious Puzzle Guardian ]------------------ ★
+  |                                                                     |
+  |  You\'re just in time! The Historians will compile today's results   |
+  |  for you now!                                                       |
+  |                                                                     |
+  ★ ------------------------------------------------------------------- ★
+  `)
+}
+
 setTimeout(() => {
-    challenges.forEach((c: BasePuzzle) => c.run())
+    if (fullRun) {
+      puzzles.forEach((p: BasePuzzle) => p.run())
+    } else {
+      puzzles[curDate.getDate()-1].run()
+    }
     console.log(`
     
         _                                                         _   
@@ -26,4 +54,4 @@ setTimeout(() => {
                                    \\ V /                              
                                     \\_/                               
     `)
-}, 1000)
+}, 2500)

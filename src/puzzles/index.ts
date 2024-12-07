@@ -12,6 +12,6 @@ export default [
     new Puzzle3(),
     new Puzzle4(),
     new Puzzle5(),
-    // new Puzzle6()
-    new Puzzle7()
+    new Puzzle6(),
+    new Puzzle7(),
 ]
