@@ -1,4 +1,4 @@
-import { deepClone, toAnswerString } from "../utils/utils.ts";
+import { deepClone, toAnswerString } from "../aoc-toolbox/utils.ts";
 import { BasePuzzle } from "./base-puzzle.ts";
 
 export default class Puzzle5 extends BasePuzzle {
