@@ -1,6 +1,6 @@
 import type { Point } from "../aoc-toolbox/types.ts";
-import { addPoints, clonePoint, hasPoint, POINT_ZERO, pointDiff, pointPairs, sortPoints, subtractPoints, uniquePoints } from "../aoc-toolbox/math-utils.ts";
-import { deepClone, toAnswerString } from "../aoc-toolbox/utils.ts";
+import { addPoints, hasPoint, pointDiff, pointPairs, sortPoints, subtractPoints, uniquePoints } from "../aoc-toolbox/math-utils.ts";
+import { toAnswerString } from "../aoc-toolbox/utils.ts";
 import { BasePuzzle } from "./base-puzzle.ts";
 
 type Frequency = { freq: string, pos: Point[] }
