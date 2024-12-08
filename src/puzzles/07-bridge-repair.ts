@@ -1,4 +1,4 @@
-import { concatInts, ntob, toAnswerString } from "../utils.ts";
+import { concatInts, toAnswerString } from "../utils/utils.ts";
 import { BasePuzzle } from "./base-puzzle.ts";
 
 export default class Puzzle7 extends BasePuzzle {

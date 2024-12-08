@@ -1,4 +1,5 @@
-import { countMatches, toAnswerString, xbRgx } from "../utils.ts";
+import { xbRgx } from "../utils/xb-rgx.ts";
+import { countMatches, toAnswerString } from "../utils/utils.ts";
 import { BasePuzzle } from "./base-puzzle.ts";
 
 export default class Puzzle4 extends BasePuzzle {

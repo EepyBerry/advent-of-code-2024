@@ -1,4 +1,4 @@
-import { toAnswerString } from "../utils.ts";
+import { toAnswerString } from "../utils/utils.ts";
 import { BasePuzzle } from "./base-puzzle.ts";
 
 export default class Puzzle1 extends BasePuzzle {
