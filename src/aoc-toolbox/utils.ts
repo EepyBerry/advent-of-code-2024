@@ -4,9 +4,13 @@ export function setCharAt(str: string, index: number, chr: string) {
   }
   return str.substring(0,index) + chr + str.substring(index+1);
 }
-export function toAnswerString(n: number) {
-  return numPadEnd(n, 38, ' ');
+export function insertAt(str: string, chunk: string, position: number) {
+  return str.substring(0, position) + chunk + str.substring(position)
 }
+export function moveStringAt(str: string, chunk: string, position: number) {
+  return str.substring(0, position) + chunk + str.substring(position, str.length-chunk.length-1)
+}
+
 export function patchString(str: string, patch: string, token: string = '#') {
   [...str.matchAll(new RegExp(`${token}`, 'g'))].forEach((match, idx) => {
     str = setCharAt(str, match.index, patch[idx])
@@ -15,6 +19,10 @@ export function patchString(str: string, patch: string, token: string = '#') {
 }
 export function concatInts(a: number, b: number) {
   return parseInt(a.toString() + b.toString())
+}
+
+export function toAnswerString(n: number) {
+  return numPadEnd(n, 38, ' ');
 }
 
 // --------------------------------------------------------------------------------------------------------------------

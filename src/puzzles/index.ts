@@ -6,6 +6,7 @@ import Puzzle5 from "./05-print-queue.ts";
 import Puzzle6 from "./06-guard-gallivant.ts";
 import Puzzle7 from "./07-bridge-repair.ts";
 import Puzzle8 from "./08-resonant-collinearity.ts";
+import Puzzle9 from "./09-disk-fragmenter.ts";
 
 export default [
     new Puzzle1(),
@@ -15,5 +16,6 @@ export default [
     new Puzzle5(),
     new Puzzle6(),
     new Puzzle7(),
-    new Puzzle8()
+    new Puzzle8(),
+    new Puzzle9(),
 ]
