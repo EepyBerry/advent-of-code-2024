@@ -22,7 +22,7 @@ if (curDate > new Date('2024-12-25')) {
   console.warn(`
   ★ -------------------- Mysterious Puzzle Guardian ------------------- ★
   |                                                                     |
-  |  Seems like the 2024 holidays have passed...                        |
+  |  Seems like the holidays have passed...                             |
   |  The Historians will compile each day\'s results for you!            |
   |                                                                     |
   ★ ------------------------------------------------------------------- ★

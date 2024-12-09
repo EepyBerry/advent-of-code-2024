@@ -1,12 +1,17 @@
-import { toAnswerString } from "../aoc-toolbox/utils.ts";
+import { swapArrayElements, toAnswerString } from "../aoc-toolbox/utils.ts";
 import { BasePuzzle } from "./base-puzzle.ts";
+
+type FileFragment = { id?: number }
+type DiskBlock = { id?: number, length: number }
+const EMPTY_BLOCK = { id: undefined }
 
 export default class Puzzle9 extends BasePuzzle {
 
-  private disk: string = ''
+  private p1Disk: FileFragment[] = []
+  private p2Disk: FileFragment[] = []
 
   run(): void {
-    this.loadInput('09e')
+    this.loadInput('09')
     if (this.input?.length === 0) {
       return
     }
@@ -23,37 +28,43 @@ export default class Puzzle9 extends BasePuzzle {
     console.log('  \\_____________________________________________________________________/')
   }
 
+  // note: input is 20k chars, worst case scenario gives 180k objects exactly
   protected setup(): void {
-    this.disk = this.input[0]
-    // nothing :c
+    let fileId = 0
+    this.input[0].split('').forEach((block, i) => {
+      if (i % 2 === 0) {
+        this.p1Disk.push(...Array(parseInt(block)).fill({ id: fileId }))
+        fileId++
+      } else {
+        this.p1Disk.push(...Array(parseInt(block)).fill(EMPTY_BLOCK))
+      }
+    })
   }
 
   // TODO: complete this
   protected partOne(): number {
-    let diskCopy = this.disk
-    let checksum = 0
-    let defragedDisk = '', block = '', blockData = 0
-    for (let i = 0, fileId = 0; i < diskCopy.length; i++, fileId += i % 2) {
-      block = diskCopy[i]
-      blockData = parseInt(block)
-      if (i % 2 === 0) {
-        // Add existing block
-        defragedDisk += block.repeat(blockData)
-        checksum += i * blockData
-      } else {
-        // Fetch - decompress - checksum
-        defragedDisk += diskCopy[diskCopy.length - 1]
-
-        // defragedDisk += '.'.repeat(parseInt(block))
-        checksum += i * (diskCopy.length - 1)
+    //this.printBlocks(this.p1Blocks)
+    let e = this.p1Disk.length-1
+    for (let b = 0; b < this.p1Disk.length; b++) {
+      if (e <= b) break;
+      if (this.p1Disk[b].id !== undefined) continue;
+      
+      this.p1Disk[b] = this.p1Disk[e]
+      this.p1Disk[e] = EMPTY_BLOCK
+      //this.printBlocks(this.p1Blocks)
+      while (this.p1Disk[e].id === undefined) {
+        e--
       }
     }
-    console.log(defragedDisk)
-    return checksum
+    return this.p1Disk.filter(b => b.id !== undefined).reduce((cur, acc, idx) => cur += (idx * acc.id!), 0)
   }
 
   // TODO: complete this
   protected partTwo(): number {
     return 0
+  }
+
+  private printBlocks(b: FileFragment[]) {
+    console.log(b.map(l => l.id ?? '.').join(''))
   }
 }

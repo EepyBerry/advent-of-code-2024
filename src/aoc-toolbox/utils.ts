@@ -10,6 +10,9 @@ export function insertAt(str: string, chunk: string, position: number) {
 export function moveStringAt(str: string, chunk: string, position: number) {
   return str.substring(0, position) + chunk + str.substring(position, str.length-chunk.length-1)
 }
+export function swapArrayElements(arr: any[], from: number, to: number) {
+  [arr[from], arr[to]] = [arr[to], arr[from]]
+}
 
 export function patchString(str: string, patch: string, token: string = '#') {
   [...str.matchAll(new RegExp(`${token}`, 'g'))].forEach((match, idx) => {
