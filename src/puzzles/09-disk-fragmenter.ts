@@ -1,14 +1,15 @@
-import { swapArrayElements, toAnswerString } from "../aoc-toolbox/utils.ts";
+import { toAnswerString } from "../aoc-toolbox/utils.ts";
 import { BasePuzzle } from "./base-puzzle.ts";
 
 type FileFragment = { id?: number }
-type DiskBlock = { id?: number, length: number }
+type DiskChunk = { fragments: FileFragment[] }
+
 const EMPTY_BLOCK = { id: undefined }
 
 export default class Puzzle9 extends BasePuzzle {
 
   private p1Disk: FileFragment[] = []
-  private p2Disk: FileFragment[] = []
+  private p2Disk: DiskChunk[] = []
 
   run(): void {
     this.loadInput('09')
@@ -34,16 +35,16 @@ export default class Puzzle9 extends BasePuzzle {
     this.input[0].split('').forEach((block, i) => {
       if (i % 2 === 0) {
         this.p1Disk.push(...Array(parseInt(block)).fill({ id: fileId }))
+        this.p2Disk.push({ fragments: Array(parseInt(block)).fill({ id: fileId }) })
         fileId++
       } else {
         this.p1Disk.push(...Array(parseInt(block)).fill(EMPTY_BLOCK))
+        this.p2Disk.push({ fragments: Array(parseInt(block)).fill(EMPTY_BLOCK) })
       }
     })
   }
 
-  // TODO: complete this
   protected partOne(): number {
-    //this.printBlocks(this.p1Blocks)
     let e = this.p1Disk.length-1
     for (let b = 0; b < this.p1Disk.length; b++) {
       if (e <= b) break;
@@ -51,7 +52,6 @@ export default class Puzzle9 extends BasePuzzle {
       
       this.p1Disk[b] = this.p1Disk[e]
       this.p1Disk[e] = EMPTY_BLOCK
-      //this.printBlocks(this.p1Blocks)
       while (this.p1Disk[e].id === undefined) {
         e--
       }
@@ -59,12 +59,20 @@ export default class Puzzle9 extends BasePuzzle {
     return this.p1Disk.filter(b => b.id !== undefined).reduce((cur, acc, idx) => cur += (idx * acc.id!), 0)
   }
 
-  // TODO: complete this
   protected partTwo(): number {
+    let e = this.p2Disk.length-1
+    for (let b = 0; b < this.p2Disk.length; b++) {
+      if (e <= b) break;
+      if (this.p2Disk[b].fragments[0].id !== undefined) continue;
+    }
     return 0
   }
 
   private printBlocks(b: FileFragment[]) {
     console.log(b.map(l => l.id ?? '.').join(''))
+  }
+
+  private isChunkFree(chunk: DiskChunk) {
+    return chunk.fragments[0].id !== undefined
   }
 }
