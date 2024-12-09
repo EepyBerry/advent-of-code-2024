@@ -18,7 +18,7 @@ export default class Puzzle9 extends BasePuzzle {
     console.log('  ⎸                          _    ______    _                 ★         ⎹')
     console.log('  ⎸   ★                     (_)  |______|  (_)                          ⎹')
     console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Dick checksum:               ${toAnswerString(this.partOne())} ⎹`)
+    console.log(`  ⎸ Disk checksum:               ${toAnswerString(this.partOne())} ⎹`)
     console.log(`  ⎸ Similarity score:            ${toAnswerString(this.partTwo())} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
@@ -51,7 +51,7 @@ export default class Puzzle9 extends BasePuzzle {
     console.log(defragedDisk)
     return checksum
   }
-  
+
   // TODO: complete this
   protected partTwo(): number {
     return 0
