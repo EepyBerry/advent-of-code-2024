@@ -1,5 +1,5 @@
-import { toAnswerString } from "../aoc-toolbox/utils.ts";
-import { BasePuzzle } from "./base-puzzle.ts";
+import { toAnswerString } from "@toolbox/utils";
+import { BasePuzzle } from "./base-puzzle";
 
 type DiskBlock = { id: number }
 type DiskChunk = { blocks: DiskBlock[] }

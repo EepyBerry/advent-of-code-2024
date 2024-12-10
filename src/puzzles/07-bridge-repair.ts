@@ -1,5 +1,5 @@
-import { concatInts, toAnswerString } from "../aoc-toolbox/utils.ts";
-import { BasePuzzle } from "./base-puzzle.ts";
+import { concatInts, toAnswerString } from "@toolbox/utils";
+import { BasePuzzle } from "./base-puzzle";
 
 export default class Puzzle7 extends BasePuzzle {
 

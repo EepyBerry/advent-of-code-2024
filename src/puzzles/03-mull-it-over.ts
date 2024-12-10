@@ -1,5 +1,5 @@
-import { toAnswerString } from "../aoc-toolbox/utils.ts";
-import { BasePuzzle } from "./base-puzzle.ts";
+import { toAnswerString } from "@toolbox/utils";
+import { BasePuzzle } from "./base-puzzle";
 
 export default class Puzzle3 extends BasePuzzle {
 

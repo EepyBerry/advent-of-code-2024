@@ -1,6 +1,6 @@
-import { xbRgx } from "../aoc-toolbox/xb-rgx.ts";
-import { countMatches, toAnswerString } from "../aoc-toolbox/utils.ts";
-import { BasePuzzle } from "./base-puzzle.ts";
+import { xbRgx } from "@toolbox/xb-rgx";
+import { countMatches, toAnswerString } from "@toolbox/utils";
+import { BasePuzzle } from "./base-puzzle";
 
 export default class Puzzle4 extends BasePuzzle {
 

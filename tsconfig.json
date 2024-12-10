@@ -4,10 +4,9 @@
   "compilerOptions": {
     "noEmit": true,
     "target": "esnext",
-    "module": "nodenext",
+    "module": "Preserve",
+    "moduleDetection": "force",
     "allowImportingTsExtensions": true,
-    "rewriteRelativeImportExtensions": true,
-    "verbatimModuleSyntax": true,
     "resolveJsonModule": true,
     "noImplicitThis": true,
     "strict": true,
@@ -18,6 +17,10 @@
     "skipLibCheck": true,
     "removeComments": false,
 
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@toolbox/*": ["src/aoc-toolbox/*"]
+    }
   }
 }

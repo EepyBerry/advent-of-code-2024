@@ -1,4 +1,4 @@
-import type { Point } from "./types.ts"
+import type { Point } from "./types"
 
 export const POINT_ZERO = { x:0, y: 0 }
 
