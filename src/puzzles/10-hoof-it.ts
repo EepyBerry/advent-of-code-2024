@@ -45,7 +45,7 @@ export default class Puzzle10 extends BasePuzzle {
 
   private doStep(curPos: Point, reachedPeaks: Point[], ratingMode: boolean = false): Point[] {
     const curValue = this.grid[curPos.y][curPos.x]
-    if (this.grid[curPos.y][curPos.x] === 9 && (ratingMode ? true : !hasPoint(reachedPeaks, curPos))) {
+    if (curValue === 9 && (ratingMode ? true : !hasPoint(reachedPeaks, curPos))) {
       reachedPeaks.push(curPos)
       return reachedPeaks
     }
