@@ -49,15 +49,16 @@ export default class Puzzle11 extends BasePuzzle {
   private blink(stones: number[][]) {
     let newStones: number[][] = []
     for (let b = 0; b < stones.length; b++) {
-      let blockNum = Number(stones[b][0])
+      let blockNum = stones[b][0],
+          blockcount = stones[b][1]
       if (blockNum === 0) {
-        this.addToStoneBlock(newStones, 1, stones[b][1])
+        this.addToStoneBlock(newStones, 1, blockcount)
       } else if (blockNum.toString().length % 2 === 0) {
         let splitStones = this.splitEvenNumber(blockNum)
-        this.addToStoneBlock(newStones, splitStones[0], stones[b][1])
-        this.addToStoneBlock(newStones, splitStones[1], stones[b][1])
+        this.addToStoneBlock(newStones, splitStones[0], blockcount)
+        this.addToStoneBlock(newStones, splitStones[1], blockcount)
       } else {
-        this.addToStoneBlock(newStones, blockNum * 2024, stones[b][1])
+        this.addToStoneBlock(newStones, blockNum * 2024, blockcount)
       }
     }
     stones.splice(0)
