@@ -8,6 +8,7 @@ import Puzzle7 from "./07-bridge-repair";
 import Puzzle8 from "./08-resonant-collinearity";
 import Puzzle9 from "./09-disk-fragmenter";
 import Puzzle10 from "./10-hoof-it";
+import Puzzle11 from "./11-plutonian-pebbles";
 
 export default [
     new Puzzle1(),
@@ -20,4 +21,5 @@ export default [
     new Puzzle8(),
     new Puzzle9(),
     new Puzzle10(),
+    new Puzzle11(),
 ]

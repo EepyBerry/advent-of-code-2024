@@ -39,6 +39,9 @@ export function numToBase(n: number, r: number, length: number) {
 
 // --------------------------------------------------------------------------------------------------------------------
 
+export function insertInArray(arr: any[], value: any, position: number): void {
+  arr.splice(position, 0, value)
+}
 export function deepClone(obj: any) {
   return JSON.parse(JSON.stringify(obj))
 }
