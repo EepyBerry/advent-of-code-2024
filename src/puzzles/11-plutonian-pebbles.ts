@@ -1,15 +1,13 @@
 import { deepClone, toAnswerString } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
 
-type StoneChunk = { stones: number[] }
-
 export default class Puzzle11 extends BasePuzzle {
 
-  private stones: StoneChunk = { stones: [] }
-  private readonly CHUNK_SIZE = 8192
+  private stones: number[][] = []
+  private readonly CHUNK_SIZE = 32768
 
   run(): void {
-    this.loadInput('11e')
+    this.loadInput('11')
     if (this.input?.length === 0) {
       return
     }
@@ -27,51 +25,63 @@ export default class Puzzle11 extends BasePuzzle {
   }
 
   protected setup(): void {
-    this.stones.stones.push(...this.input[0].split(' ').map(n => parseInt(n)))
+    this.stones.push(this.input[0].split(' ').map(n => parseInt(n)))
     console.log(this.stones)
   }
 
   protected partOne(): number {
-    let stonesCopy = deepClone(this.stones)
-    let total = 0
+    let stonesCopy: number[][] = deepClone(this.stones)
+    console.log(stonesCopy.map(k => k.join(' ')).join(', '))
     for (let c = 0; c < 25; c++) {
-      total += this.blink(stonesCopy)
+      this.blink(stonesCopy)
+      this.rechunk(stonesCopy)
     }
-    return total
+    return stonesCopy.reduce((acc, cur) => acc += cur.length, 0)
   }
 
   protected partTwo(): number {
-    return 0
+    let stonesCopy: number[][] = deepClone(this.stones)
+    console.log(stonesCopy.map(k => k.join(' ')).join(', '))
+    for (let c = 0; c < 75; c++) {
+      this.blink(stonesCopy)
+      this.rechunk(stonesCopy)
+      console.log(c)
+    }
+    return stonesCopy.reduce((acc, cur) => acc += cur.length, 0)
   }
   
   // ----------------------------------------------------------------------------------------------
 
-  private blink(chunk: StoneChunk): number {
-    const newChunks: StoneChunk[] = [{ stones: [] }]
+  private blink(stones: number[][]): void {
     let curStone: number, splitStones: number[]
-    let chunkIdx = 0
-    for (let i = 0; i < chunk.stones.length; i++) {
-      curStone = chunk.stones[i]
-      if (curStone === 0) {
-        newChunks[chunkIdx].stones.push(1)
-      }
-      else if (curStone.toString().length % 2 === 0) {
-        splitStones = this.splitEvenNumber(curStone)
-        newChunks[chunkIdx].stones.push(splitStones[0])
-        newChunks[chunkIdx].stones.push(splitStones[1])
-      }
-      else {
-        newChunks[chunkIdx].stones.push(curStone * 2024)
-      }
-
-      // add new chunk when current chunk is too large
-      if (newChunks[chunkIdx].stones.length >= this.CHUNK_SIZE) {
-        newChunks.push({ stones: [] })
-        chunkIdx++
+    for (let c = 0; c < stones.length; c++) {
+      for (let i = 0; i < stones[c].length; i++) {
+        curStone = stones[c][i]
+        if (curStone === 0) {
+          stones[c][i] = 1
+        }
+        else if (curStone.toString().length % 2 === 0) {
+          splitStones = this.splitEvenNumber(curStone)
+          stones[c][i] = splitStones[1]
+          stones[c].splice(i, 0, splitStones[0])
+          i++
+        }
+        else {
+          stones[c][i] *= 2024
+        }
       }
     }
-    console.log(newChunks)
-    return newChunks.reduce((acc, cur) => acc += cur.stones.length, 0)
+  }
+
+  private rechunk(stones: number[][]) {
+    for (let c = 0; c < stones.length; c++) {
+      if (stones[c].length <= this.CHUNK_SIZE) continue;
+      let subchunks: number[][] = []
+      for (let i = 0; i < stones[c].length; i += this.CHUNK_SIZE) {
+        subchunks.push(stones[c].slice(i, i + this.CHUNK_SIZE))
+      }
+      stones.splice(c, 1, ...subchunks)
+    }
   }
 
   private splitEvenNumber(n: number): number[] {
