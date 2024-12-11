@@ -12,8 +12,8 @@ console.log(`
   (https://adventofcode.com) - Eric Wastl                        >>> 2024
   _______________________________________________________________________
                              |                                           
-  Stars collected:  20 / 50  |                          Code by EepyBerry
-  ★★★★★★★★★★                 |               https://github.com/EepyBerry
+  Stars collected:  22 / 50  |                          Code by EepyBerry
+  ★★★★★★★★★★★                |               https://github.com/EepyBerry
   `)
 
 let fullRun = false
