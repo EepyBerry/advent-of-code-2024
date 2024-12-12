@@ -70,9 +70,6 @@ export default class Puzzle12 extends BasePuzzle {
       this.mapRegion({ x: unmappedX, y: unmappedY }, this.grid[unmappedY][unmappedX], regionData)
       console.log(JSON.stringify(regionData))
       total += regionData.area * this.countSides(deepClone(regionData.perimeterSegments))
-      console.log(regionData.area)
-      console.log(this.countSides(regionData.perimeterSegments))
-      console.log(regionData.area * this.countSides(deepClone(regionData.perimeterSegments)))
     }
     return total
   }
@@ -99,9 +96,7 @@ export default class Puzzle12 extends BasePuzzle {
     })
   }
 
-  private checkGardenPatch(
-    refPos: Point, orientation: CardinalOrientation, plant: string
-  ): { pos: Point, type: PatchType, perimeterData?: PerimeterSegment } {
+  private checkGardenPatch(refPos: Point, orientation: CardinalOrientation, plant: string): { pos: Point, type: PatchType, perimeterData?: PerimeterSegment } {
     let actualPos: Point = this.computeActualPos(refPos, orientation)
 
     // out of bounds
@@ -112,7 +107,6 @@ export default class Puzzle12 extends BasePuzzle {
         perimeterData: this.computePerimeterData(refPos, orientation)
       }
     }
-
     // hit a mapped plant (same or different)
     if (this.mappedGrid[actualPos.y][actualPos.x] === 'X') {
       return {
@@ -123,7 +117,6 @@ export default class Puzzle12 extends BasePuzzle {
         perimeterData: this.grid[actualPos.y][actualPos.x] === plant ? undefined : this.computePerimeterData(refPos, orientation)
       }
     }
-
     // hit an unmapped, different plant
     if (this.grid[actualPos.y][actualPos.x] !== plant) {
       return {
@@ -132,7 +125,6 @@ export default class Puzzle12 extends BasePuzzle {
         perimeterData: this.computePerimeterData(refPos, orientation)
       }
     }
-
     // is ok :>
     return { pos: actualPos, type: PatchType.VALID }
   }
@@ -162,30 +154,47 @@ export default class Puzzle12 extends BasePuzzle {
       && pos.y < this.grid.length
   }
 
-  private countSides(perimeters: PerimeterSegment[]): number {
+  private countSides(perimeter: PerimeterSegment[]): number {
     let total = 0
-    let refPerimeter: PerimeterSegment
-    while(perimeters.length > 0) {
-      refPerimeter = perimeters[0]
-      let side: PerimeterSegment[] = []
-      for (let p = 0; p < perimeters.length; p++) {
-
-      }
+    let refSegment: PerimeterSegment
+    while(perimeter.length > 0) {
+      console.log(perimeter.length)
+      refSegment = perimeter[0]
+      this.findContiguousSegments(refSegment, perimeter)
+      total++
     }
-    return 0
+    return total
   }
 
-  private findContiguousPerimeter(segment: PerimeterSegment, perimeter: PerimeterSegment[], orientation: CardinalOrientation, fencePointCoord: number) {
-    let sideSegments = []
-    let isHorizontalSide = orientation === CardinalOrientation.NORTH || orientation === CardinalOrientation.SOUTH
-    if (isHorizontalSide) {
-      let matchingSegments = perimeter.filter(p =>
-        p.orientation === segment.orientation
-        && (isHorizontalSide ? (p.fencePoint.x === segment.fencePoint.x) : (p.fencePoint.y === segment.fencePoint.y))
-      ).sort((a,b) => a.fencePoint.x - b.fencePoint.x)
-    } else {
+  private findContiguousSegments(refSegment: PerimeterSegment, perimeter: PerimeterSegment[]): void {
+    let sideIndices: number[] = [0] // always the first in the list
+    let isHorizontalSide = refSegment.orientation === CardinalOrientation.NORTH || refSegment.orientation === CardinalOrientation.SOUTH
 
+    let prevSegmentIdx, nextSegmentIdx, depth = 1
+    let searchPrevious = true, searchNext = true
+    while(searchPrevious || searchNext) {
+      prevSegmentIdx = perimeter.findIndex(p =>
+        p.orientation === refSegment.orientation
+        && (isHorizontalSide
+          ? (refSegment.fencePoint.x-depth === p.fencePoint.x && refSegment.fencePoint.y === p.fencePoint.y)
+          : (p.fencePoint.y-depth === refSegment.fencePoint.y && refSegment.fencePoint.x === p.fencePoint.x)
+        )
+      )
+      nextSegmentIdx = perimeter.findIndex(p =>
+        p.orientation === refSegment.orientation
+        && (isHorizontalSide
+          ? (refSegment.fencePoint.x+depth === p.fencePoint.x && refSegment.fencePoint.y === p.fencePoint.y)
+          : (p.fencePoint.y+depth === refSegment.fencePoint.y && refSegment.fencePoint.x === p.fencePoint.x)
+        )
+      )
+      if (prevSegmentIdx === -1) searchPrevious = false
+      if (nextSegmentIdx === -1) searchNext = false
+
+      if (prevSegmentIdx >= 0) sideIndices.push(prevSegmentIdx)
+      if (nextSegmentIdx >= 0) sideIndices.push(nextSegmentIdx)
+      depth++
     }
-    
+    console.log(sideIndices)
+    sideIndices.forEach(s => perimeter.splice(s, 1))
   }
 }
