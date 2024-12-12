@@ -18,7 +18,7 @@ export default class Puzzle12 extends BasePuzzle {
   private mappedGrid: string[][] = [] // unmapped: .   mapped: X
 
   run(): void {
-    this.loadInput('12e')
+    this.loadInput('12')
     if (this.input?.length === 0) {
       return
     }
@@ -47,9 +47,7 @@ export default class Puzzle12 extends BasePuzzle {
       let unmappedY = this.mappedGrid.findIndex(row => row.includes('.')),
           unmappedX = this.mappedGrid[unmappedY].findIndex(col => col === '.')
       let regionData: RegionData = { area: 0, perimeterSegments: [] }
-      //console.log(`mapping area from ${[unmappedX, unmappedY]} (${this.grid[unmappedY][unmappedX]})`)
       this.mapRegion({ x: unmappedX, y: unmappedY }, this.grid[unmappedY][unmappedX], regionData)
-      //console.log(JSON.stringify(regionData))
       total += regionData.area * regionData.perimeterSegments.length
     }
 
@@ -66,12 +64,8 @@ export default class Puzzle12 extends BasePuzzle {
       let unmappedY = this.mappedGrid.findIndex(row => row.includes('.')),
           unmappedX = this.mappedGrid[unmappedY].findIndex(col => col === '.')
       let regionData: RegionData = { area: 0, perimeterSegments: [] }
-      console.log(`mapping area from ${[unmappedX, unmappedY]} (${this.grid[unmappedY][unmappedX]})`)
       this.mapRegion({ x: unmappedX, y: unmappedY }, this.grid[unmappedY][unmappedX], regionData)
-      console.log(JSON.stringify(regionData))
-      let sides = this.countSides(deepClone(regionData.perimeterSegments))
-      total += regionData.area * sides
-      console.log('sides: ' + sides)
+      total += regionData.area * this.countCorners(regionData.perimeterSegments)
     }
     return total
   }
@@ -80,7 +74,6 @@ export default class Puzzle12 extends BasePuzzle {
     if (this.mappedGrid[curPos.y][curPos.x] === 'X') {
       return
     }
-    //console.log('mapping step: '+JSON.stringify(curPos))
     data.area++
     this.mappedGrid[curPos.y][curPos.x] = 'X'
 
@@ -156,46 +149,37 @@ export default class Puzzle12 extends BasePuzzle {
       && pos.y < this.grid.length
   }
 
-  private countSides(perimeter: PerimeterSegment[]): number {
+  // because number of sides = number of corners, silly me...
+  // yes i got help on this one, at least i learned a new technique :3
+  private countCorners(perimeter: PerimeterSegment[]): number {
     let total = 0
-    let refSegment: PerimeterSegment
-    while(perimeter.length > 0) {
-      //console.log(perimeter.length)
-      refSegment = perimeter[0]
-      this.findContiguousSegments(refSegment, perimeter)
+    // count all horizontal segments NOT preceded by another (means that a corner is present)
+    let horzSegments = perimeter.filter(segment => segment.orientation === CardinalOrientation.NORTH || segment.orientation === CardinalOrientation.SOUTH)
+    for (let p = 0; p < horzSegments.length; p++) {
+      let curSegment = horzSegments[p]
+      if (horzSegments.find(s =>
+        s.orientation === curSegment.orientation
+        && s.fencePoint.x === (curSegment.fencePoint.x-1)
+        && s.fencePoint.y === curSegment.fencePoint.y
+      )) {
+        continue
+      }
+      total++
+    }
+
+    // count all vertical segments NOT preceded by another (means that a corner is present)
+    let vertSegments = perimeter.filter(segment => segment.orientation === CardinalOrientation.WEST || segment.orientation === CardinalOrientation.EAST)
+    for (let p = 0; p < vertSegments.length; p++) {
+      let curSegment = vertSegments[p]
+      if (vertSegments.find(s =>
+        s.orientation === curSegment.orientation
+        && s.fencePoint.y === (curSegment.fencePoint.y-1)
+        && s.fencePoint.x === curSegment.fencePoint.x
+      )) {
+        continue
+      }
       total++
     }
     return total
-  }
-
-  private findContiguousSegments(refSegment: PerimeterSegment, perimeter: PerimeterSegment[]): void {
-    let sideIndices: number[] = [0] // always the first in the list
-    let isHorizontalSide = refSegment.orientation === CardinalOrientation.NORTH || refSegment.orientation === CardinalOrientation.SOUTH
-
-    let prevSegmentIdx, nextSegmentIdx, depth = 1
-    let searchPrevious = true, searchNext = true
-    while(searchPrevious || searchNext) {
-      prevSegmentIdx = perimeter.findIndex(p =>
-        p.orientation === refSegment.orientation
-        && (isHorizontalSide
-          ? (refSegment.fencePoint.x-depth === p.fencePoint.x && refSegment.fencePoint.y === p.fencePoint.y)
-          : (refSegment.fencePoint.y-depth === p.fencePoint.y && refSegment.fencePoint.x === p.fencePoint.x)
-        )
-      )
-      nextSegmentIdx = perimeter.findIndex(p =>
-        p.orientation === refSegment.orientation
-        && (isHorizontalSide
-          ? (refSegment.fencePoint.x+depth === p.fencePoint.x && refSegment.fencePoint.y === p.fencePoint.y)
-          : (refSegment.fencePoint.y+depth === p.fencePoint.y && refSegment.fencePoint.x === p.fencePoint.x)
-        )
-      )
-      if (prevSegmentIdx === -1) searchPrevious = false
-      if (nextSegmentIdx === -1) searchNext = false
-
-      if (prevSegmentIdx >= 0) sideIndices.push(prevSegmentIdx)
-      if (nextSegmentIdx >= 0) sideIndices.push(nextSegmentIdx)
-      depth++
-    }
-    sideIndices.sort((a,b) => b-a).forEach(s => perimeter.splice(s, 1))
   }
 }
