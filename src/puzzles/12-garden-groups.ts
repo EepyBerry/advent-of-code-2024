@@ -69,7 +69,9 @@ export default class Puzzle12 extends BasePuzzle {
       console.log(`mapping area from ${[unmappedX, unmappedY]} (${this.grid[unmappedY][unmappedX]})`)
       this.mapRegion({ x: unmappedX, y: unmappedY }, this.grid[unmappedY][unmappedX], regionData)
       console.log(JSON.stringify(regionData))
-      total += regionData.area * this.countSides(deepClone(regionData.perimeterSegments))
+      let sides = this.countSides(deepClone(regionData.perimeterSegments))
+      total += regionData.area * sides
+      console.log('sides: ' + sides)
     }
     return total
   }
@@ -158,7 +160,7 @@ export default class Puzzle12 extends BasePuzzle {
     let total = 0
     let refSegment: PerimeterSegment
     while(perimeter.length > 0) {
-      console.log(perimeter.length)
+      //console.log(perimeter.length)
       refSegment = perimeter[0]
       this.findContiguousSegments(refSegment, perimeter)
       total++
@@ -177,14 +179,14 @@ export default class Puzzle12 extends BasePuzzle {
         p.orientation === refSegment.orientation
         && (isHorizontalSide
           ? (refSegment.fencePoint.x-depth === p.fencePoint.x && refSegment.fencePoint.y === p.fencePoint.y)
-          : (p.fencePoint.y-depth === refSegment.fencePoint.y && refSegment.fencePoint.x === p.fencePoint.x)
+          : (refSegment.fencePoint.y-depth === p.fencePoint.y && refSegment.fencePoint.x === p.fencePoint.x)
         )
       )
       nextSegmentIdx = perimeter.findIndex(p =>
         p.orientation === refSegment.orientation
         && (isHorizontalSide
           ? (refSegment.fencePoint.x+depth === p.fencePoint.x && refSegment.fencePoint.y === p.fencePoint.y)
-          : (p.fencePoint.y+depth === refSegment.fencePoint.y && refSegment.fencePoint.x === p.fencePoint.x)
+          : (refSegment.fencePoint.y+depth === p.fencePoint.y && refSegment.fencePoint.x === p.fencePoint.x)
         )
       )
       if (prevSegmentIdx === -1) searchPrevious = false
@@ -194,7 +196,6 @@ export default class Puzzle12 extends BasePuzzle {
       if (nextSegmentIdx >= 0) sideIndices.push(nextSegmentIdx)
       depth++
     }
-    console.log(sideIndices)
-    sideIndices.reverse().forEach(s => perimeter.splice(s, 1))
+    sideIndices.sort((a,b) => b-a).forEach(s => perimeter.splice(s, 1))
   }
 }
