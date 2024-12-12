@@ -195,6 +195,6 @@ export default class Puzzle12 extends BasePuzzle {
       depth++
     }
     console.log(sideIndices)
-    sideIndices.forEach(s => perimeter.splice(s, 1))
+    sideIndices.reverse().forEach(s => perimeter.splice(s, 1))
   }
 }
