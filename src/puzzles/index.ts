@@ -9,6 +9,7 @@ import Puzzle8 from "./08-resonant-collinearity";
 import Puzzle9 from "./09-disk-fragmenter";
 import Puzzle10 from "./10-hoof-it";
 import Puzzle11 from "./11-plutonian-pebbles";
+import Puzzle12 from "./12-garden-groups";
 
 export default [
     new Puzzle1(),
@@ -22,4 +23,5 @@ export default [
     new Puzzle9(),
     new Puzzle10(),
     new Puzzle11(),
+    new Puzzle12(),
 ]
