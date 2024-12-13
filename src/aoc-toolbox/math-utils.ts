@@ -37,6 +37,20 @@ export function pointPairs(arr: Point[]): Point[][] {
     )
   )
 }
+
+// ------------------------------------------------------------------------------------------------
+
+/**
+ * Recursive Greatest Common Divisor (or Factor)
+ * @returns the GCD of a & b
+ */
+export function rgcd(a: number, b: number) {
+  if (b === 0) return a
+  return rgcd(b, a % b)
+}
+
+// ------------------------------------------------------------------------------------------------
+
 export function pairs(arr: any[]) {
   return arr.flatMap((a, ai) => 
     arr.flatMap((b, bi) => 

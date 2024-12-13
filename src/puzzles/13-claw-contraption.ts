@@ -2,6 +2,7 @@ import { xbRgx } from "@toolbox/xb-rgx";
 import { toAnswerString } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
 import { Point } from "@/aoc-toolbox/types";
+import { rgcd } from "@/aoc-toolbox/math-utils";
 
 type ClawButton = { cost: number, px: number, py: number }
 type ClawMachine = { a: ClawButton, b: ClawButton, prize: Point }
@@ -12,7 +13,7 @@ export default class Puzzle13 extends BasePuzzle {
   private prizeRgx = /X=(\d*), Y=(\d*)/
 
   run(): void {
-    this.loadInputRaw('13e')
+    this.loadInputRaw('13')
     if (this.input?.length === 0) {
       return
     }
@@ -24,7 +25,7 @@ export default class Puzzle13 extends BasePuzzle {
     console.log('  ⎸                          _    ______    _                  ★        ⎹')
     console.log('  ⎸       ★                 (_)  |______|  (_)                          ⎹')
     console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Nb of XMAS occurrences:      ${toAnswerString(this.partOne())} ⎹`)
+    console.log(`  ⎸ Minimum nb of tokens:        ${toAnswerString(this.partOne())} ⎹`)
     console.log(`  ⎸ Nb of X-MAS occurrences:     ${toAnswerString(this.partTwo())} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
@@ -46,10 +47,40 @@ export default class Puzzle13 extends BasePuzzle {
   }
 
   protected partOne(): number {
-    return 0
+    let total = 0
+    for (let machine of this.clawMachines.filter(m => this.isWinnable(m))) {
+      total += this.findMinTokensForMachine(machine, 100) ?? 0
+    }
+    return total
   }
 
   protected partTwo(): number {
-    return 0
+    let total = 0
+    for (let machine of this.clawMachines.filter(m => this.isWinnable(m))) {
+      total += this.findMinTokensForMachine(machine, Number.MAX_SAFE_INTEGER) ?? 0
+    }
+    return total
+  }
+
+  private isWinnable(machine: ClawMachine) {
+    return machine.prize.x % rgcd(machine.a.px, machine.b.px) === 0
+        && machine.prize.y % rgcd(machine.a.py, machine.b.py) === 0
+  }
+
+  private findMinTokensForMachine(machine: ClawMachine, max: number): number|undefined {
+    let minCost = Number.MAX_SAFE_INTEGER
+    for (let apress = 0; apress < max; apress++) {
+      for (let bpress = 0; bpress < max; bpress++) {
+        let xTest = (machine.a.px * apress) + (machine.b.px * bpress)
+        let yTest = (machine.a.py * apress) + (machine.b.py * bpress)
+        if (xTest !== machine.prize.x || yTest !== machine.prize.y) continue
+        
+        let tokenCost = (machine.a.cost * apress) + (machine.b.cost * bpress)
+        if (tokenCost < minCost) {
+          minCost = tokenCost
+        }
+      }
+    }
+    return minCost < Number.MAX_SAFE_INTEGER ? minCost : undefined
   }
 }
