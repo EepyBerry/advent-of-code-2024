@@ -10,6 +10,7 @@ import Puzzle9 from "./09-disk-fragmenter";
 import Puzzle10 from "./10-hoof-it";
 import Puzzle11 from "./11-plutonian-pebbles";
 import Puzzle12 from "./12-garden-groups";
+import Puzzle13 from "./13-claw-contraption";
 
 export default [
     new Puzzle1(),
@@ -24,4 +25,5 @@ export default [
     new Puzzle10(),
     new Puzzle11(),
     new Puzzle12(),
+    new Puzzle13(),
 ]
