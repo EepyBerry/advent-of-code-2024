@@ -12,8 +12,8 @@ console.log(`
   (https://adventofcode.com) - Eric Wastl                        >>> 2024
   _______________________________________________________________________
                              |                                           
-  Stars collected:  27 / 50  |                          Code by EepyBerry
-  ★★★★★★★★★★★★✰★             |               https://github.com/EepyBerry
+  Stars collected:  28 / 50  |                          Code by EepyBerry
+  ★★★★★★★★★★★★★★             |               https://github.com/EepyBerry
   `)
 
 let fullRun = false
@@ -25,8 +25,7 @@ if (curDate > new Date('2024-12-25')) {
   |  Seems like the holidays have passed...                             |
   |  The Historians will compile each day\'s results for you!            |
   |                                                                     |
-  ★ ------------------------------------------------------------------- ★
-    `)
+  ★ ------------------------------------------------------------------- ★`)
   fullRun = true
 } else {
   console.warn(`
@@ -35,8 +34,7 @@ if (curDate > new Date('2024-12-25')) {
   |  You\'re just in time! The Historians will compile today's results   |
   |  for you now!                                                       |
   |                                                                     |
-  ★ ------------------------------------------------------------------- ★
-  `)
+  ★ ------------------------------------------------------------------- ★`)
 }
 
 setTimeout(() => {
@@ -46,7 +44,6 @@ setTimeout(() => {
       puzzles[curDate.getDate()-1].run()
     }
     console.log(`
-    
         _                                                         _   
        ( )                                                       ( )  
       _|/    ______   ______   _  __   __  _   ______   ______    \\|_ 

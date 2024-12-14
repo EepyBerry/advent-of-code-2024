@@ -1,4 +1,4 @@
-import type { Vector2 } from "./types"
+import type { Matrix2, Vector2 } from "./types"
 
 // ------------------------------------------------------------------------------------------------
 // POINT OPERATIONS
@@ -72,4 +72,20 @@ export function pairs(arr: any[]) {
       (ai > bi) ? [[a,b]] : []
     )
   )
+}
+
+// ------------------------------------------------------------------------------------------------
+// MATRIX OPERATIONS
+
+export function cramerize2(m: Matrix2, c: number[]): number[] {
+  let c1 = c[0], c2 = c[1]
+
+  const determinant = m.a1*m.b2 - m.a2*m.b1
+  if (determinant === 0) {
+    throw new Error('Cannot cramerize: matrix determinant is zero (thus not invertible)')
+  }
+
+  const dx = c1*m.b2 - m.b1*c2
+  const dy = m.a1*c2 - c1*m.a2
+  return [dx/determinant, dy/determinant]
 }
