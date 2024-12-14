@@ -1,12 +1,12 @@
 import { BasePuzzle } from "./base-puzzle";
-import type { Point } from "@toolbox/types";
+import type { Vector2 } from "@toolbox/types";
 import { hasPoint } from "@toolbox/math-utils";
 import { toAnswerString } from "@toolbox/utils";
 
 export default class Puzzle10 extends BasePuzzle {
 
   private grid: number[][] = []
-  private trailStartPositions: Point[] = []
+  private trailStartPositions: Vector2[] = []
 
   run(): void {
     this.loadInputRaw('10')
@@ -43,7 +43,7 @@ export default class Puzzle10 extends BasePuzzle {
 
   // ----------------------------------------------------------------------------------------------
 
-  private doStep(curPos: Point, reachedPeaks: Point[], ratingMode: boolean = false): Point[] {
+  private doStep(curPos: Vector2, reachedPeaks: Vector2[], ratingMode: boolean = false): Vector2[] {
     const curValue = this.grid[curPos.y][curPos.x]
     if (curValue === 9 && (ratingMode ? true : !hasPoint(reachedPeaks, curPos))) {
       reachedPeaks.push(curPos)
@@ -57,7 +57,7 @@ export default class Puzzle10 extends BasePuzzle {
     return reachedPeaks
   }
 
-  private isPointValid(p: Point, curValue: number) {
+  private isPointValid(p: Vector2, curValue: number) {
     return p.x >= 0 && p.x < this.grid[0].length
       && p.y >= 0 && p.y < this.grid.length
       && (curValue + 1) === this.grid[p.y][p.x]

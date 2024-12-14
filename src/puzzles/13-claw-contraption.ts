@@ -1,11 +1,11 @@
 import { xbRgx } from "@toolbox/xb-rgx";
 import { toAnswerString } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
-import { Point } from "@/aoc-toolbox/types";
+import { Vector2 } from "@/aoc-toolbox/types";
 import { rgcd } from "@/aoc-toolbox/math-utils";
 
 type ClawButton = { cost: number, px: number, py: number }
-type ClawMachine = { a: ClawButton, b: ClawButton, prize: Point }
+type ClawMachine = { a: ClawButton, b: ClawButton, prize: Vector2 }
 
 export default class Puzzle13 extends BasePuzzle {
 
@@ -25,8 +25,8 @@ export default class Puzzle13 extends BasePuzzle {
     console.log('  ⎸                          _    ______    _                  ★        ⎹')
     console.log('  ⎸       ★                 (_)  |______|  (_)                          ⎹')
     console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Minimum nb of tokens:        ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Nb of X-MAS occurrences:     ${toAnswerString(this.partTwo())} ⎹`)
+    console.log(`  ⎸ Min. nb of tokens:           ${toAnswerString(this.partOne())} ⎹`)
+    console.log(`  ⎸ Min. nb of tokens (10^12):   ${toAnswerString(this.partTwo())} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
 

@@ -1,8 +1,8 @@
 import { deepClone, toAnswerString } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
-import { CardinalOrientation, Point } from "@/aoc-toolbox/types";
+import { CardinalOrientation, Vector2 } from "@/aoc-toolbox/types";
 
-type PerimeterSegment = { orientation: CardinalOrientation, fencePoint: Point }
+type PerimeterSegment = { orientation: CardinalOrientation, fencePoint: Vector2 }
 type RegionData = { area: number, perimeterSegments: PerimeterSegment[] }
 enum PatchType {
   OUT_OF_BOUNDS,
@@ -70,7 +70,7 @@ export default class Puzzle12 extends BasePuzzle {
     return total
   }
 
-  private mapRegion(curPos: Point, plant: string, data: RegionData): void {
+  private mapRegion(curPos: Vector2, plant: string, data: RegionData): void {
     if (this.mappedGrid[curPos.y][curPos.x] === 'X') {
       return
     }
@@ -91,8 +91,8 @@ export default class Puzzle12 extends BasePuzzle {
     })
   }
 
-  private checkGardenPatch(refPos: Point, orientation: CardinalOrientation, plant: string): { pos: Point, type: PatchType, perimeterData?: PerimeterSegment } {
-    let actualPos: Point = this.computeActualPos(refPos, orientation)
+  private checkGardenPatch(refPos: Vector2, orientation: CardinalOrientation, plant: string): { pos: Vector2, type: PatchType, perimeterData?: PerimeterSegment } {
+    let actualPos: Vector2 = this.computeActualPos(refPos, orientation)
 
     // out of bounds
     if (!this.isWithinBounds(actualPos)) {
@@ -124,7 +124,7 @@ export default class Puzzle12 extends BasePuzzle {
     return { pos: actualPos, type: PatchType.VALID }
   }
 
-  private computeActualPos(refPos: Point, orientation: CardinalOrientation) {
+  private computeActualPos(refPos: Vector2, orientation: CardinalOrientation) {
     switch (orientation) {
       case CardinalOrientation.NORTH: return { x: refPos.x, y: refPos.y-1 }
       case CardinalOrientation.EAST:  return { x: refPos.x+1, y: refPos.y }
@@ -133,7 +133,7 @@ export default class Puzzle12 extends BasePuzzle {
     }
   }
 
-  private computePerimeterData(refPos: Point, orientation: CardinalOrientation): PerimeterSegment {
+  private computePerimeterData(refPos: Vector2, orientation: CardinalOrientation): PerimeterSegment {
     switch (orientation) {
       case CardinalOrientation.NORTH: return { orientation, fencePoint: { x: refPos.x, y: refPos.y-0.5 } }
       case CardinalOrientation.EAST:  return { orientation, fencePoint: { x: refPos.x+0.5, y: refPos.y } }
@@ -142,7 +142,7 @@ export default class Puzzle12 extends BasePuzzle {
     }
   }
 
-  private isWithinBounds(pos: Point) {
+  private isWithinBounds(pos: Vector2) {
     return pos.x >= 0
       && pos.x < this.grid[0].length
       && pos.y >= 0

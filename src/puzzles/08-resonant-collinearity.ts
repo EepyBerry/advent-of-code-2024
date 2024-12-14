@@ -1,9 +1,9 @@
-import type { Point } from "@toolbox/types";
+import type { Vector2 } from "@toolbox/types";
 import { addPoints, hasPoint, pointDiff, pointPairs, sortPoints, subtractPoints, uniquePoints } from "@toolbox/math-utils";
 import { toAnswerString } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
 
-type Frequency = { freq: string, pos: Point[] }
+type Frequency = { freq: string, pos: Vector2[] }
 
 export default class Puzzle8 extends BasePuzzle {
 
@@ -41,13 +41,13 @@ export default class Puzzle8 extends BasePuzzle {
   }
 
   protected partOne(): number {
-    const antinodes: Point[] = []
+    const antinodes: Vector2[] = []
     this.freqs.forEach(f => this.scanFrequency(f, antinodes))
     return antinodes.length
   }
 
   protected partTwo(): number {
-    const antinodes: Point[] = []
+    const antinodes: Vector2[] = []
     this.freqs.forEach(f => {
       antinodes.push(...f.pos)
       this.scanHarmonicFrequency(f, antinodes)
@@ -58,8 +58,8 @@ export default class Puzzle8 extends BasePuzzle {
 
   // ----------------------------------------------------------------------------------------------
 
-  private scanFrequency(freq: Frequency, antinodes: Point[]): Point[] {
-    let antPairs: Point[][] = pointPairs(freq.pos)
+  private scanFrequency(freq: Frequency, antinodes: Vector2[]): Vector2[] {
+    let antPairs: Vector2[][] = pointPairs(freq.pos)
     antPairs.forEach(p => sortPoints(p))
     antPairs.forEach(p => {
       const diff = pointDiff(p[0], p[1])
@@ -75,8 +75,8 @@ export default class Puzzle8 extends BasePuzzle {
     return antinodes
   }
 
-  private scanHarmonicFrequency(freq: Frequency, antinodes: Point[]): Point[] {
-    let antPairs: Point[][] = pointPairs(freq.pos)
+  private scanHarmonicFrequency(freq: Frequency, antinodes: Vector2[]): Vector2[] {
+    let antPairs: Vector2[][] = pointPairs(freq.pos)
     antPairs.forEach(p => p.sort((a, b) => a.y-b.y !== 0 ? a.y-b.y : a.x-b.x))
     antPairs.forEach(p => {
       const diff = pointDiff(p[0], p[1])
@@ -98,12 +98,12 @@ export default class Puzzle8 extends BasePuzzle {
     return antinodes
   }
 
-  private isPointValid(p: Point) {
+  private isPointValid(p: Vector2) {
     return p.x >= 0 && p.x < this.grid[0].length
       && p.y >= 0 && p.y < this.grid.length
   }
 
-  private displayGrid(antinodes: Point[]) {
+  private displayGrid(antinodes: Vector2[]) {
     antinodes.forEach(un => {
       if (this.grid[un.y][un.x] !== '.') return
       this.grid[un.y][un.x] = '#'

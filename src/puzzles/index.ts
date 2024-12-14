@@ -11,6 +11,7 @@ import Puzzle10 from "./10-hoof-it";
 import Puzzle11 from "./11-plutonian-pebbles";
 import Puzzle12 from "./12-garden-groups";
 import Puzzle13 from "./13-claw-contraption";
+import Puzzle14 from "./14-restroom-redoubt";
 
 export default [
     new Puzzle1(),
@@ -26,4 +27,5 @@ export default [
     new Puzzle11(),
     new Puzzle12(),
     new Puzzle13(),
+    new Puzzle14()
 ]

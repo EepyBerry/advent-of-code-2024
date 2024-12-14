@@ -58,3 +58,7 @@ export function pairs(arr: any[]) {
 export function countMatches(str: string, rgx: RegExp) {
   return [...str.matchAll(rgx)].length;
 }
+
+// --------------------------------------------------------------------------------------------------------------------
+
+export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
