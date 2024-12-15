@@ -22,8 +22,8 @@ console.log(`
   \x1b[92m${aoc}\x1b[92m - Eric Wastl & co.                    >>> 2024\x1b[0m
   \x1b[38;5;244m_______________________________________________________________________\x1b[0m
                              ${d}                                           
-  Stars collected:  29 / 50  ${d}                          Code by ${by('EepyBerry')}
-  \x1b[38;5;220m★★★★★★★★★★★★★★☆\x1b[0m            ${d}               ${gh('EepyBerry')}
+  Stars collected:  30 / 50  ${d}                          Code by ${by('EepyBerry')}
+  \x1b[38;5;220m★★★★★★★★★★★★★★★\x1b[0m            ${d}               ${gh('EepyBerry')}
   `)
 
 // display info message for run mode

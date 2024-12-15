@@ -1,4 +1,4 @@
-import { CardinalOrientation } from "./types";
+import { CardinalOrientation, Vector2 } from "./types";
 
 export function setCharAt(str: string, index: number, chr: string): string {
   if(index > str.length-1) {
@@ -61,8 +61,18 @@ export function countMatches(str: string, rgx: RegExp) {
   return [...str.matchAll(rgx)].length;
 }
 
+// --------------------------------------------------------------------------------------------------------------------
+
 export function isHorizontal(orientation: CardinalOrientation) {
   return [CardinalOrientation.EAST,CardinalOrientation.WEST].includes(orientation)
+}
+export function getNextCardinalPosition(curPos: Vector2, orientation: CardinalOrientation) {
+  switch (orientation) {
+    case CardinalOrientation.NORTH: return { x: curPos.x, y: curPos.y-1 }
+    case CardinalOrientation.EAST:  return { x: curPos.x+1, y: curPos.y }
+    case CardinalOrientation.SOUTH: return { x: curPos.x, y: curPos.y+1 }
+    case CardinalOrientation.WEST:  return { x: curPos.x-1, y: curPos.y }
+  }
 }
 
 // --------------------------------------------------------------------------------------------------------------------
