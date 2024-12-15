@@ -1,6 +1,6 @@
 import type { Vector2 } from "@toolbox/types";
 import { addPoints, hasPoint, pointDiff, pointPairs, sortPoints, subtractPoints, uniquePoints } from "@toolbox/math-utils";
-import { toAnswerString } from "@toolbox/utils";
+import { formatAnswer } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
 
 type Frequency = { freq: string, pos: Vector2[] }
@@ -21,8 +21,8 @@ export default class Puzzle8 extends BasePuzzle {
     console.log(`  ⎸                 ★        _    ______    _                           ⎹`)
     console.log(`  ⎸       ★                 (_)  |______|  (_)                          ⎹`)
     console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Total antinodes:             ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Total harmonic antinodes:    ${toAnswerString(this.partTwo())} ⎹`)
+    console.log(`  ⎸ Total antinodes:             ${formatAnswer(this.partOne())} ⎹`)
+    console.log(`  ⎸ Total harmonic antinodes:    ${formatAnswer(this.partTwo())} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
 

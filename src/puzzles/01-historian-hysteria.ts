@@ -1,5 +1,5 @@
-import { toAnswerString } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
+import { ddl, ddr, dgr, dnr, dnl, dre, dsepb, dsept, dt, s, dul, dur, dpl, dpa, dph } from "@/aoc-toolbox/pretty-print";
 
 export default class Puzzle1 extends BasePuzzle {
 
@@ -13,15 +13,16 @@ export default class Puzzle1 extends BasePuzzle {
     }
     this.setup()
 
-    console.log('\n   _____________________________________________________________________ ')
-    console.log(`  /                                                                     \\`)
-    console.log(`  ⎸   ★                  Day 1: Historian Hysteria                      ⎹`)
-    console.log(`  ⎸                          _    ______    _                 ★         ⎹`)
-    console.log(`  ⎸                 ★       (_)  |______|  (_)                          ⎹`)
-    console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Distance between lists:      ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Similarity score:            ${toAnswerString(this.partTwo())} ⎹`)
-    console.log('  \\_____________________________________________________________________/')
+    const title = 'Historian Hysteria'
+    console.log(`\n  ${dgr} _____________________________________________________________________ ${dre}`)
+    console.log(`  ${dnl}                                                                     ${dnr}`)
+    console.log(`  ${ddl}   #                  ${     dt(1, title)     }                      ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}                         ${     dsept     }                #         ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}                 #       ${     dsepb     }                          ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}                                                                     ${ddr}`)
+    console.log(`  ${ddl} ${dpl('Distance between lists:')}      ${dpa(this.partOne())      } ${ddr}`)
+    console.log(`  ${ddl} ${dph('Similarity score:      ')}      ${dpa(this.partTwo())      } ${ddr}`)
+    console.log(`  ${dul}_____________________________________________________________________${dur}`)
   }
 
   protected setup(): void {

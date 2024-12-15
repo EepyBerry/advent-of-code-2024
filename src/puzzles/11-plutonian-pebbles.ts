@@ -1,4 +1,4 @@
-import { deepClone, toAnswerString } from "@toolbox/utils";
+import { deepClone, formatAnswer } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
 
 export default class Puzzle11 extends BasePuzzle {
@@ -18,8 +18,8 @@ export default class Puzzle11 extends BasePuzzle {
     console.log(`  ⎸          ★               _    ______    _                           ⎹`)
     console.log(`  ⎸                         (_)  |______|  (_)                     ★    ⎹`)
     console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Total stones (25 blinks):    ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Total stones (75 blinks):    ${toAnswerString(this.partTwo())} ⎹`)
+    console.log(`  ⎸ Total stones (25 blinks):    ${formatAnswer(this.partOne())} ⎹`)
+    console.log(`  ⎸ Total stones (75 blinks):    ${formatAnswer(this.partTwo())} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
 

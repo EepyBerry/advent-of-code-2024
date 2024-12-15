@@ -1,4 +1,4 @@
-import { toAnswerString } from "@toolbox/utils";
+import { formatAnswer } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
 
 type DiskBlock = { id: number }
@@ -24,8 +24,8 @@ export default class Puzzle9 extends BasePuzzle {
     console.log(`  ⎸                          _    ______    _                           ⎹`)
     console.log(`  ⎸   ★                     (_)  |______|  (_)                ★         ⎹`)
     console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Fragmented disk checksum:    ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Disk checksum:               ${toAnswerString(this.partTwo())} ⎹`)
+    console.log(`  ⎸ Fragmented disk checksum:    ${formatAnswer(this.partOne())} ⎹`)
+    console.log(`  ⎸ Disk checksum:               ${formatAnswer(this.partTwo())} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
 

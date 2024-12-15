@@ -1,5 +1,5 @@
 import { xbRgx } from "@toolbox/xb-rgx";
-import { toAnswerString } from "@toolbox/utils";
+import { formatAnswer } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
 import { Matrix2, Vector2 } from "@/aoc-toolbox/types";
 import { cramerize2, rgcd } from "@/aoc-toolbox/math-utils";
@@ -25,8 +25,8 @@ export default class Puzzle13 extends BasePuzzle {
     console.log(`  ⎸                          _    ______    _                  ★        ⎹`)
     console.log(`  ⎸       ★                 (_)  |______|  (_)                          ⎹`)
     console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Min. nb of tokens:           ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Min. nb of tokens (10^12):   ${toAnswerString(this.partTwo())} ⎹`)
+    console.log(`  ⎸ Min. nb of tokens:           ${formatAnswer(this.partOne())} ⎹`)
+    console.log(`  ⎸ Min. nb of tokens (10^12):   ${formatAnswer(this.partTwo())} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
 

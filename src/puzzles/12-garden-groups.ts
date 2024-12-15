@@ -1,4 +1,4 @@
-import { deepClone, toAnswerString } from "@toolbox/utils";
+import { deepClone, formatAnswer } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
 import { CardinalOrientation, Vector2 } from "@/aoc-toolbox/types";
 
@@ -30,8 +30,8 @@ export default class Puzzle12 extends BasePuzzle {
     console.log(`  ⎸   ★                      _    ______    _               ★           ⎹`)
     console.log(`  ⎸                         (_)  |______|  (_)      ★                   ⎹`)
     console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Total garden price:          ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Total discounted price:      ${toAnswerString(this.partTwo())} ⎹`)
+    console.log(`  ⎸ Total garden price:          ${formatAnswer(this.partOne())} ⎹`)
+    console.log(`  ⎸ Total discounted price:      ${formatAnswer(this.partTwo())} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
 

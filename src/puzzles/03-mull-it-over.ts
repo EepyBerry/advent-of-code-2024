@@ -1,5 +1,5 @@
-import { toAnswerString } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
+import { dgr, dre, dnl, dnr, ddl, dt, ddr, s, dsept, dsepb, dpl, dpa, dph, dul, dur } from "@/aoc-toolbox/pretty-print";
 
 export default class Puzzle3 extends BasePuzzle {
 
@@ -14,15 +14,16 @@ export default class Puzzle3 extends BasePuzzle {
     }
     this.setup()
 
-    console.log('\n   _____________________________________________________________________ ')
-    console.log(`  /                                                                     \\`)
-    console.log(`  ⎸                         Day 3: Mull It Over                         ⎹`)
-    console.log(`  ⎸   ★                      _    ______    _               ★           ⎹`)
-    console.log(`  ⎸                         (_)  |______|  (_)      ★                   ⎹`)
-    console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ mul() instructions total:    ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Nb of safe-ish reports:      ${toAnswerString(this.partTwo())} ⎹`)
-    console.log('  \\_____________________________________________________________________/')
+    const title = 'Mull It Over'
+    console.log(`\n  ${dgr} _____________________________________________________________________ ${dre}`)
+    console.log(`  ${dnl}                                                                     ${dnr}`)
+    console.log(`  ${ddl}                         ${  dt(3, title)  }                         ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}   #                     ${     dsept     }               #          ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}                         ${     dsepb     }      #                   ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}                                                                     ${ddr}`)
+    console.log(`  ${ddl} ${dpl('mul() instructions:       ')}   ${dpa(this.partOne())      } ${ddr}`)
+    console.log(`  ${ddl} ${dph('Active mul() instructions:')}   ${dpa(this.partTwo())      } ${ddr}`)
+    console.log(`  ${dul}_____________________________________________________________________${dur}`)
   }
 
   protected setup(): void {

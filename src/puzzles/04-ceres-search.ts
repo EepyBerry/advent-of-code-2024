@@ -1,6 +1,7 @@
 import { xbRgx } from "@toolbox/xb-rgx";
-import { countMatches, toAnswerString } from "@toolbox/utils";
+import { countMatches } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
+import { dgr, dre, dnl, dnr, ddl, dt, ddr, s, dsept, dsepb, dpl, dpa, dph, dul, dur } from "@/aoc-toolbox/pretty-print";
 
 export default class Puzzle4 extends BasePuzzle {
 
@@ -15,15 +16,16 @@ export default class Puzzle4 extends BasePuzzle {
     }
     this.setup()
 
-    console.log('\n   _____________________________________________________________________ ')
-    console.log(`  /                                                                     \\`)
-    console.log(`  ⎸                 ★       Day 4: Ceres Search                         ⎹`)
-    console.log(`  ⎸                          _    ______    _                  ★        ⎹`)
-    console.log(`  ⎸       ★                 (_)  |______|  (_)                          ⎹`)
-    console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Nb of XMAS occurrences:      ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Nb of X-MAS occurrences:     ${toAnswerString(this.partTwo())} ⎹`)
-    console.log('  \\_____________________________________________________________________/')
+    const title = 'Ceres Search'
+    console.log(`\n  ${dgr} _____________________________________________________________________ ${dre}`)
+    console.log(`  ${dnl}                                                                     ${dnr}`)
+    console.log(`  ${ddl}                 #       ${  dt(4, title)  }                         ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}                         ${     dsept     }                 #        ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}       #                 ${     dsepb     }                          ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}                                                                     ${ddr}`)
+    console.log(`  ${ddl} ${dpl('Nb of XMAS occurrences: ')}     ${dpa(this.partOne())      } ${ddr}`)
+    console.log(`  ${ddl} ${dph('Nb of X-MAS occurrences:')}     ${dpa(this.partTwo())      } ${ddr}`)
+    console.log(`  ${dul}_____________________________________________________________________${dur}`)
   }
 
   protected setup(): void {

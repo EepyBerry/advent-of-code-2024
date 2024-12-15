@@ -1,4 +1,4 @@
-import { concatInts, toAnswerString } from "@toolbox/utils";
+import { concatInts, formatAnswer } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
 
 export default class Puzzle7 extends BasePuzzle {
@@ -18,8 +18,8 @@ export default class Puzzle7 extends BasePuzzle {
     console.log(`  ⎸             ★            _    ______    _                           ⎹`)
     console.log(`  ⎸                         (_)  |______|  (_)                      ★   ⎹`)
     console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Total calibration result:    ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Updated calibration result:  ${toAnswerString(this.partTwo())} ⎹`)
+    console.log(`  ⎸ Total calibration result:    ${formatAnswer(this.partOne())} ⎹`)
+    console.log(`  ⎸ Updated calibration result:  ${formatAnswer(this.partTwo())} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
 

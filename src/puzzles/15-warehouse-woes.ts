@@ -1,4 +1,4 @@
-import { deepClone, getNextCardinalPosition, isHorizontal, setCharAt, toAnswerString } from "@toolbox/utils";
+import { deepClone, getNextCardinalPosition, isHorizontal, setCharAt, formatAnswer } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
 import { CardinalOrientation, Vector2 } from "@/aoc-toolbox/types";
 import { VEC2_ZERO } from "@/aoc-toolbox/math-utils";
@@ -26,8 +26,8 @@ export default class Puzzle15 extends BasePuzzle {
     console.log(`  ⎸                          _    ______    _                           ⎹`)
     console.log(`  ⎸       ★                 (_)  |______|  (_)       ★                  ⎹`)
     console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Box GPS coordinates sum:     ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Box GPS coordinates sum:     ${toAnswerString(this.partTwo())} ⎹`)
+    console.log(`  ⎸ Box GPS coordinates sum:     ${formatAnswer(this.partOne())} ⎹`)
+    console.log(`  ⎸ Box GPS coordinates sum:     ${formatAnswer(this.partTwo())} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
 

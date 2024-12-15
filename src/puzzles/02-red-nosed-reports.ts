@@ -1,5 +1,5 @@
-import { toAnswerString } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
+import { dgr, dre, dnl, dnr, ddl, dt, ddr, s, dsept, dsepb, dpl, dpa, dul, dur, dph } from "@/aoc-toolbox/pretty-print";
 
 export default class Puzzle2 extends BasePuzzle {
 
@@ -12,15 +12,16 @@ export default class Puzzle2 extends BasePuzzle {
     }
     this.setup()
 
-    console.log('\n   _____________________________________________________________________ ')
-    console.log(`  /                                                                     \\`)
-    console.log(`  ⎸                      Day 2: Red-Nosed Reports       ★               ⎹`)
-    console.log(`  ⎸          ★               _    ______    _                           ⎹`)
-    console.log(`  ⎸                         (_)  |______|  (_)                     ★    ⎹`)
-    console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Nb of safe reports:          ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Nb of safe-ish reports:      ${toAnswerString(this.partTwo())} ⎹`)
-    console.log('  \\_____________________________________________________________________/')
+    const title = 'Red-Nosed Reports'
+    console.log(`\n  ${dgr} _____________________________________________________________________ ${dre}`)
+    console.log(`  ${dnl}                                                                     ${dnr}`)
+    console.log(`  ${ddl}                      ${     dt(2, title)    }       #               ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}          #              ${     dsept     }                          ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}                         ${     dsepb     }                     #    ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}                                                                     ${ddr}`)
+    console.log(`  ${ddl} ${dpl('Nb of safe reports:    ')}      ${dpa(this.partOne())      } ${ddr}`)
+    console.log(`  ${ddl} ${dph('Nb of safe-ish reports:')}      ${dpa(this.partTwo())      } ${ddr}`)
+    console.log(`  ${dul}_____________________________________________________________________${dur}`)
   }
 
   protected setup(): void {

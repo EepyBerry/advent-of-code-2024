@@ -1,5 +1,6 @@
-import { deepClone, toAnswerString } from "@toolbox/utils";
+import { deepClone, formatAnswer } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
+import { dgr, dre, dnl, dnr, ddl, dt, ddr, s, dsept, dsepb, dpl, dpa, dph, dul, dur } from "@/aoc-toolbox/pretty-print";
 
 export default class Puzzle6 extends BasePuzzle {
 
@@ -12,15 +13,16 @@ export default class Puzzle6 extends BasePuzzle {
     if (!this.input) return
     this.setup()
 
-    console.log('\n   _____________________________________________________________________ ')
-    console.log(`  /                                                                     \\`)
-    console.log(`  ⎸                       Day 6: Guard Gallivant                ★       ⎹`)
-    console.log(`  ⎸                          _    ______    _                           ⎹`)
-    console.log(`  ⎸       ★                 (_)  |______|  (_)       ★                  ⎹`)
-    console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Distinct positions:          ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Possible obstruction spots:  ${toAnswerString(this.partTwo())} ⎹`)
-    console.log('  \\_____________________________________________________________________/')
+    const title = 'Guard Gallivant'
+    console.log(`\n  ${dgr} _____________________________________________________________________ ${dre}`)
+    console.log(`  ${dnl}                                                                     ${dnr}`)
+    console.log(`  ${ddl}                       ${   dt(6, title)    }                #       ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}                         ${     dsept     }                          ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}       #                 ${     dsepb     }       #                  ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}                                                                     ${ddr}`)
+    console.log(`  ${ddl} ${dpl('Distinct positions:        ')}  ${dpa(this.partOne())      } ${ddr}`)
+    console.log(`  ${ddl} ${dph('Possible obstruction spots:')}  ${dpa(this.partTwo())      } ${ddr}`)
+    console.log(`  ${dul}_____________________________________________________________________${dur}`)
   }
 
   protected setup(): void {

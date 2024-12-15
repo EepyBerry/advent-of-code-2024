@@ -1,5 +1,5 @@
-import { toAnswerString } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
+import { dgr, dre, dnl, dnr, ddl, dt, ddr, s, dsept, dsepb, dpl, dpa, dph, dul, dur } from "@/aoc-toolbox/pretty-print";
 
 export default class Puzzle5 extends BasePuzzle {
 
@@ -13,15 +13,16 @@ export default class Puzzle5 extends BasePuzzle {
     }
     this.setup()
 
-    console.log('\n   _____________________________________________________________________ ')
-    console.log(`  /                                                                     \\`)
-    console.log(`  ⎸   ★                     Day 5: Print Queue              ★           ⎹`)
-    console.log(`  ⎸                          _    ______    _                           ⎹`)
-    console.log(`  ⎸                     ★   (_)  |______|  (_)                          ⎹`)
-    console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Sum of mid. numbers:         ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Sum of sorted mid. numbers:  ${toAnswerString(this.partTwo())} ⎹`)
-    console.log('  \\_____________________________________________________________________/')
+    const title = 'Print Queue'
+    console.log(`\n  ${dgr} _____________________________________________________________________ ${dre}`)
+    console.log(`  ${dnl}                                                                     ${dnr}`)
+    console.log(`  ${ddl}   #                     ${ dt(5, title)  }              #           ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}                         ${     dsept     }                          ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}                     #   ${     dsepb     }                          ${ddr}`.replaceAll('#', s))
+    console.log(`  ${ddl}                                                                     ${ddr}`)
+    console.log(`  ${ddl} ${dpl('Sum of mid. numbers:       ')}  ${dpa(this.partOne())      } ${ddr}`)
+    console.log(`  ${ddl} ${dph('Sum of sorted mid. numbers:')}  ${dpa(this.partTwo())      } ${ddr}`)
+    console.log(`  ${dul}_____________________________________________________________________${dur}`)
   }
 
   protected setup(): void {

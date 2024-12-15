@@ -6,7 +6,7 @@ import puzzles from './puzzles/index.ts'
 if (process.argv.slice(2).length > 1) {
   console.warn('\x1b[33mInvalid command format!\x1b[0m')
   console.warn('\x1b[33mUsage: npm run start [full]\x1b[0m')
-  console.warn('\x1b[38;5;244m(full: runs every puzzle script sequentially)\x1b[0m\n')
+  console.warn('\x1b[38;5;246m(full: runs every puzzle script sequentially)\x1b[0m\n')
   process.exit(1)
 }
 
@@ -20,7 +20,7 @@ console.log(`
   /_/    \\_\\__,_| \\_/ \\___|_| |_|\\__|  \\___/|_|    \\_____\\___/ \\__,_|\\___|
                                                 ${s}
   \x1b[92m${aoc}\x1b[92m - Eric Wastl & co.                    >>> 2024\x1b[0m
-  \x1b[38;5;244m_______________________________________________________________________\x1b[0m
+  \x1b[38;5;246m_______________________________________________________________________\x1b[0m
                              ${d}                                           
   Stars collected:  30 / 50  ${d}                          Code by ${by('EepyBerry')}
   \x1b[38;5;220m★★★★★★★★★★★★★★★\x1b[0m            ${d}               ${gh('EepyBerry')}
@@ -62,5 +62,5 @@ setTimeout(() => {
      (_)    |______| |______| (_) \\ \\ / / (_) |______| |______|    (_)
                                    \\ V /                              
                                     \\_/                               
-    `)
+    \x1b[0m`)
 }, 2500)

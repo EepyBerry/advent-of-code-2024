@@ -1,4 +1,4 @@
-import { sleep, toAnswerString } from "@toolbox/utils";
+import { sleep, formatAnswer } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
 import { Vector2 } from "@/aoc-toolbox/types";
 import { mod } from "@/aoc-toolbox/math-utils";
@@ -22,8 +22,8 @@ export default class Puzzle14 extends BasePuzzle {
     console.log(`  ⎸                          _    ______    _                           ⎹`)
     console.log(`  ⎸                     ★   (_)  |______|  (_)                          ⎹`)
     console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Safety factor:               ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Easter egg at second:        ${toAnswerString(this.partTwo())} ⎹`)
+    console.log(`  ⎸ Safety factor:               ${formatAnswer(this.partOne())} ⎹`)
+    console.log(`  ⎸ Easter egg at second:        ${formatAnswer(this.partTwo())} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
 

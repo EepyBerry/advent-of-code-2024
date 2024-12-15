@@ -1,7 +1,7 @@
 import { BasePuzzle } from "./base-puzzle";
 import type { Vector2 } from "@toolbox/types";
 import { hasPoint } from "@toolbox/math-utils";
-import { toAnswerString } from "@toolbox/utils";
+import { formatAnswer } from "@toolbox/utils";
 
 export default class Puzzle10 extends BasePuzzle {
 
@@ -21,8 +21,8 @@ export default class Puzzle10 extends BasePuzzle {
     console.log(`  ⎸                          _    ______    _                 ★         ⎹`)
     console.log(`  ⎸                 ★       (_)  |______|  (_)                          ⎹`)
     console.log(`  ⎸                                                                     ⎹`)
-    console.log(`  ⎸ Trailhead score sum:         ${toAnswerString(this.partOne())} ⎹`)
-    console.log(`  ⎸ Trailhead rating sum:        ${toAnswerString(this.partTwo())} ⎹`)
+    console.log(`  ⎸ Trailhead score sum:         ${formatAnswer(this.partOne())} ⎹`)
+    console.log(`  ⎸ Trailhead rating sum:        ${formatAnswer(this.partTwo())} ⎹`)
     console.log('  \\_____________________________________________________________________/')
   }
 

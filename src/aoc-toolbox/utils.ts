@@ -26,7 +26,7 @@ export function concatInts(a: number, b: number) {
   return parseInt(a.toString() + b.toString())
 }
 
-export function toAnswerString(n: number) {
+export function formatAnswer(n: number) {
   return numPadEnd(n, 38, ' ');
 }
 
