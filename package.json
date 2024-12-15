@@ -1,7 +1,12 @@
 {
+  "author": {
+    "name": "EepyBerry",
+    "url": "https://github.com/EepyBerry"
+  },
   "type": "module",
   "scripts": {
-    "start": "npx tsx src/main.ts"
+    "start": "npx tsx src/main.ts",
+    "start-full": "npx tsx src/main.ts full"
   },
   "devDependencies": {
     "@types/node": "^22.10.1",

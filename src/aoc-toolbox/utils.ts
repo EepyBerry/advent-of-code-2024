@@ -1,4 +1,6 @@
-export function setCharAt(str: string, index: number, chr: string) {
+import { CardinalOrientation } from "./types";
+
+export function setCharAt(str: string, index: number, chr: string): string {
   if(index > str.length-1) {
     return str;
   }
@@ -57,6 +59,10 @@ export function pairs(arr: any[]) {
 
 export function countMatches(str: string, rgx: RegExp) {
   return [...str.matchAll(rgx)].length;
+}
+
+export function isHorizontal(orientation: CardinalOrientation) {
+  return [CardinalOrientation.EAST,CardinalOrientation.WEST].includes(orientation)
 }
 
 // --------------------------------------------------------------------------------------------------------------------

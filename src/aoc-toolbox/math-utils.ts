@@ -3,7 +3,7 @@ import type { Matrix2, Vector2 } from "./types"
 // ------------------------------------------------------------------------------------------------
 // POINT OPERATIONS
 
-export const POINT_ZERO = { x:0, y: 0 }
+export const VEC2_ZERO = { x:0, y: 0 }
 
 export function clonePoint(p: Vector2) {
   return { x: p.x, y: p.y }

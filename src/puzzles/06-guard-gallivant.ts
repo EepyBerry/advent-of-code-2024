@@ -1,7 +1,7 @@
 import { deepClone, toAnswerString } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
 
-export default class Puzzle5 extends BasePuzzle {
+export default class Puzzle6 extends BasePuzzle {
 
   private grid: string[][] = []
   private startingPosition: number[] = [0,0]
