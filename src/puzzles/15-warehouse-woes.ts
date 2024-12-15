@@ -58,15 +58,16 @@ export default class Puzzle15 extends BasePuzzle {
   }
 
   protected partOne(): number {
-    const gridCopy: string[] = deepClone(this.grid)
+    // apply grid movements
     let curPos: Vector2 = deepClone(this.startingPos)
     for (let i = 0; i < this.instructions.length; i++) {
-      curPos = this.move(gridCopy, curPos, this.instrToPos(this.instructions[i]))
+      curPos = this.move(curPos, this.instrToPos(this.instructions[i]))
     }
+    // calculate GPS total for every box ('O')
     let gpsTotal = 0
-    for (let y = 0; y < gridCopy.length; y++) {
-      if (!gridCopy[y].includes('O')) continue
-      gridCopy[y].split('').forEach((char, x) => {
+    for (let y = 0; y < this.grid.length; y++) {
+      if (!this.grid[y].includes('O')) continue
+      this.grid[y].split('').forEach((char, x) => {
         if (char !== 'O') return
         gpsTotal += (100 * y) + x
       })
@@ -75,16 +76,16 @@ export default class Puzzle15 extends BasePuzzle {
   }
 
   protected partTwo(): number {
-    const expandedGridCopy: string[] = deepClone(this.expandedGrid)
+    // apply grid movements
     let curPos: Vector2 = deepClone(this.startingExpandedPos)
     for (let i = 0; i < this.instructions.length; i++) {
-      curPos = this.moveWide(expandedGridCopy, curPos, this.instrToPos(this.instructions[i]))
+      curPos = this.moveWide(curPos, this.instrToPos(this.instructions[i]))
     }
-    // console.log(expandedGridCopy.join('\n') + '\n')
+    // calculate GPS total for every box ('[')
     let gpsTotal = 0
-    for (let y = 0; y < expandedGridCopy.length; y++) {
-      if (!expandedGridCopy[y].includes('[')) continue
-      expandedGridCopy[y].split('').forEach((char, x) => {
+    for (let y = 0; y < this.expandedGrid.length; y++) {
+      if (!this.expandedGrid[y].includes('[')) continue
+      this.expandedGrid[y].split('').forEach((char, x) => {
         if (char !== '[') return
         gpsTotal += (100 * y) + x
       })
@@ -95,29 +96,29 @@ export default class Puzzle15 extends BasePuzzle {
   // ----------------------------------------------------------------------------------------------
   // part 1 algorithm
 
-  private move(grid: string[], curPos: Vector2, orientation: CardinalOrientation): Vector2 {
+  private move(curPos: Vector2, orientation: CardinalOrientation): Vector2 {
     let targetPos: Vector2 = getNextCardinalPosition(curPos, orientation)
-    if (!this.checkAhead(grid, targetPos, orientation)) {
+    if (!this.checkAhead(this.grid, targetPos, orientation)) {
       return curPos
     }
     // move objects ahead recursively (end first, immediate last)
-    if (grid[targetPos.y][targetPos.x] === 'O') {
-      this.moveBox(grid, targetPos, orientation)
+    if (this.grid[targetPos.y][targetPos.x] === 'O') {
+      this.moveBox(targetPos, orientation)
     }
 
     // move robot
-    grid[curPos.y] = setCharAt(grid[curPos.y], curPos.x, '.')
-    grid[targetPos.y] = setCharAt(grid[targetPos.y], targetPos.x, '@')
+    this.grid[curPos.y] = setCharAt(this.grid[curPos.y], curPos.x, '.')
+    this.grid[targetPos.y] = setCharAt(this.grid[targetPos.y], targetPos.x, '@')
     return targetPos
   }
 
-  private moveBox(grid: string[], boxPos: Vector2, orientation: CardinalOrientation) {
+  private moveBox(boxPos: Vector2, orientation: CardinalOrientation) {
     let nextPos = getNextCardinalPosition(boxPos, orientation)
-    if (grid[nextPos.y][nextPos.x] === 'O') {
-      this.moveBox(grid, nextPos, orientation)
+    if (this.grid[nextPos.y][nextPos.x] === 'O') {
+      this.moveBox(nextPos, orientation)
     }
-    grid[boxPos.y] = setCharAt(grid[boxPos.y], boxPos.x, '.')
-    grid[nextPos.y] = setCharAt(grid[nextPos.y], nextPos.x, 'O')
+    this.grid[boxPos.y] = setCharAt(this.grid[boxPos.y], boxPos.x, '.')
+    this.grid[nextPos.y] = setCharAt(this.grid[nextPos.y], nextPos.x, 'O')
   }
 
   private checkAhead(grid: string[], targetPos: Vector2, orientation: CardinalOrientation): boolean {
@@ -131,80 +132,80 @@ export default class Puzzle15 extends BasePuzzle {
   // ----------------------------------------------------------------------------------------------
   // part 2 algorithm
 
-  private moveWide(grid: string[], curPos: Vector2, orientation: CardinalOrientation): Vector2 {
+  private moveWide(curPos: Vector2, orientation: CardinalOrientation): Vector2 {
     let targetPos: Vector2 = getNextCardinalPosition(curPos, orientation)
-    if (!this.checkAheadWide(grid, targetPos, orientation)) {
+    if (!this.checkAheadWide(targetPos, orientation)) {
       return curPos
     }
 
     // move objects ahead recursively (end first, immediate last)
-    if (grid[targetPos.y][targetPos.x] == '[') {
-      this.moveBoxWide(grid, targetPos, orientation)
+    if (this.expandedGrid[targetPos.y][targetPos.x] == '[') {
+      this.moveBoxWide(targetPos, orientation)
       if (!isHorizontal(orientation)) {
-        this.moveBoxWide(grid, getNextCardinalPosition(targetPos, CardinalOrientation.EAST), orientation)
+        this.moveBoxWide(getNextCardinalPosition(targetPos, CardinalOrientation.EAST), orientation)
       }
     }
-    if (grid[targetPos.y][targetPos.x] == ']') {
-      this.moveBoxWide(grid, targetPos, orientation)
+    if (this.expandedGrid[targetPos.y][targetPos.x] == ']') {
+      this.moveBoxWide(targetPos, orientation)
       if (!isHorizontal(orientation)) {
-        this.moveBoxWide(grid, getNextCardinalPosition(targetPos, CardinalOrientation.WEST), orientation)
+        this.moveBoxWide(getNextCardinalPosition(targetPos, CardinalOrientation.WEST), orientation)
       }
     }
 
     // move robot
-    grid[curPos.y] = setCharAt(grid[curPos.y], curPos.x, '.')
-    grid[targetPos.y] = setCharAt(grid[targetPos.y], targetPos.x, '@')
+    this.expandedGrid[curPos.y] = setCharAt(this.expandedGrid[curPos.y], curPos.x, '.')
+    this.expandedGrid[targetPos.y] = setCharAt(this.expandedGrid[targetPos.y], targetPos.x, '@')
     return targetPos
   }
 
-  private moveBoxWide(grid: string[], boxPos: Vector2, orientation: CardinalOrientation) {
+  private moveBoxWide(boxPos: Vector2, orientation: CardinalOrientation) {
     let nextPos = getNextCardinalPosition(boxPos, orientation)
-    if (grid[nextPos.y][nextPos.x] === '[') {
+    if (this.expandedGrid[nextPos.y][nextPos.x] === '[') {
       if (isHorizontal(orientation)) {
-        this.moveBoxWide(grid, nextPos, orientation)
+        this.moveBoxWide(nextPos, orientation)
       } else {
         // note: vertical movement needs to take into account both sides of the box!
         const otherSidePos = getNextCardinalPosition(nextPos, CardinalOrientation.EAST)
-        this.moveBoxWide(grid, nextPos, orientation)
-        this.moveBoxWide(grid, otherSidePos, orientation)
+        this.moveBoxWide(nextPos, orientation)
+        this.moveBoxWide(otherSidePos, orientation)
       }
     }
-    else if (grid[nextPos.y][nextPos.x] === ']') {
+    else if (this.expandedGrid[nextPos.y][nextPos.x] === ']') {
       if (isHorizontal(orientation)) {
-        this.moveBoxWide(grid, nextPos, orientation)
+        this.moveBoxWide(nextPos, orientation)
       } else {
         // note: see above
         const otherSidePos = getNextCardinalPosition(nextPos, CardinalOrientation.WEST)
-        this.moveBoxWide(grid, otherSidePos, orientation)
-        this.moveBoxWide(grid, nextPos, orientation)
+        this.moveBoxWide(otherSidePos, orientation)
+        this.moveBoxWide(nextPos, orientation)
       }
     }
 
-    const boxSide = grid[boxPos.y][boxPos.x]
-    grid[boxPos.y] = setCharAt(grid[boxPos.y], boxPos.x, '.')
-    grid[nextPos.y] = setCharAt(grid[nextPos.y], nextPos.x, boxSide)
+    const boxSide = this.expandedGrid[boxPos.y][boxPos.x]
+    this.expandedGrid[boxPos.y] = setCharAt(this.expandedGrid[boxPos.y], boxPos.x, '.')
+    this.expandedGrid[nextPos.y] = setCharAt(this.expandedGrid[nextPos.y], nextPos.x, boxSide)
   }
 
-  private checkAheadWide(grid: string[], targetPos: Vector2, orientation: CardinalOrientation): boolean {
-    if (grid[targetPos.y][targetPos.x] === '#') return false
-    if (grid[targetPos.y][targetPos.x] === '[') {
+  private checkAheadWide(targetPos: Vector2, orientation: CardinalOrientation): boolean {
+    if (this.expandedGrid[targetPos.y][targetPos.x] === '#') return false
+    if (this.expandedGrid[targetPos.y][targetPos.x] === '[') {
       if (isHorizontal(orientation)) {
-        return this.checkAheadWide(grid, getNextCardinalPosition(targetPos, orientation), orientation)
+        return this.checkAheadWide(getNextCardinalPosition(targetPos, orientation), orientation)
       } else {
         // note: vertical movement needs to take into account both sides of the box!
         const otherSidePos = getNextCardinalPosition(targetPos, CardinalOrientation.EAST)
-        return this.checkAheadWide(grid, getNextCardinalPosition(targetPos, orientation), orientation)
-          && this.checkAheadWide(grid, getNextCardinalPosition(otherSidePos, orientation), orientation)
+        return this.checkAheadWide(getNextCardinalPosition(targetPos, orientation), orientation)
+          && this.checkAheadWide(getNextCardinalPosition(otherSidePos, orientation), orientation)
       }
     }
-    if (grid[targetPos.y][targetPos.x] === ']') {
+    if (this.expandedGrid[targetPos.y][targetPos.x] === ']') {
       if (isHorizontal(orientation)) {
-        return this.checkAheadWide(grid, getNextCardinalPosition(targetPos, orientation), orientation)
+        return this.checkAheadWide(getNextCardinalPosition(targetPos, orientation), orientation)
       } else {
         // note: see above
         const otherSidePos = getNextCardinalPosition(targetPos, CardinalOrientation.WEST)
-        return this.checkAheadWide(grid, getNextCardinalPosition(targetPos, orientation), orientation)
-          && this.checkAheadWide(grid, getNextCardinalPosition(otherSidePos, orientation), orientation)
+        return this.checkAheadWide(getNextCardinalPosition(targetPos, orientation), orientation)
+          && this.checkAheadWide(getNextCardinalPosition(otherSidePos, orientation), orientation)
       }
     }
     return true
