@@ -7,6 +7,13 @@ export const by = (author: string) => `\x1b[38;5;204m${author}\x1b[0m`
 export const gh = (by: string) => `\x1b[34mhttps://github.com/${by}\x1b[0m`
 export const aoc = `\x1b[34mhttps://adventofcode.com\x1b[0m`
 
+// guardian dialog
+export const gb = `\x1b[38;5;130m`
+export const gd = `\x1b[38;5;130m|\x1b[0m`
+export const gr = `\x1b[0m`
+export const gt = `\x1b[38;5;226m`
+export const gs = `\x1b[38;5;220m`
+
 // daycard
 export const dt = (n: number, t: string) => `\x1b[0mDay ${n}: ${t}\x1b[0m`  // daycard title
 export const dpl = (l: string) => `\x1b[92m${l}\x1b[0m`                     // daycard puzzle label

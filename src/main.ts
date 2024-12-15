@@ -1,4 +1,4 @@
-import { aoc, by, d, gh, s } from './aoc-toolbox/pretty-print.ts'
+import { aoc, by, d, gb, gd, gh, gr, gs, gt, s } from './aoc-toolbox/pretty-print.ts'
 import { BasePuzzle } from './puzzles/base-puzzle.ts'
 import puzzles from './puzzles/index.ts'
 
@@ -31,21 +31,21 @@ let fullRun = false
 const curDate = new Date()
 if (process.argv[2] == 'full' || curDate > new Date('2024-12-25')) {
   console.log(`
-  ${s} -------------------- Mysterious Puzzle Guardian ------------------- ${s}
-  |                                                                     |
-  |  Ah, I see you'd like to get a full report of this year's ventures! |
-  |  The Historians will compile each day\'s results for you!            |
-  |                                                                     |
-  ${s} ------------------------------------------------------------------- ${s}`)
+  ${s+gb} -------------------[${gr+gs} Mysterious Puzzle Guardian ${gr+gb}]------------------ ${gb+s}
+  ${gd}                                                                     ${gd}
+  ${gd+gt}  Ah, I see you'd like to get a full report of this year's ventures! ${gr+gd}
+  ${gd+gt}  The Historians will compile each day\'s results for you!            ${gr+gd}
+  ${gd}                                                                     ${gd}
+  ${s}${gb} ------------------------------------------------------------------- ${gb}${s}`)
   fullRun = true
 } else {
   console.log(`
-  ${s} -------------------[ Mysterious Puzzle Guardian ]------------------ ${s}
-  |                                                                     |
-  |  You\'re just in time! The Historians will compile today's results   |
-  |  for you now!                                                       |
-  |                                                                     |
-  ${s} ------------------------------------------------------------------- ${s}`)
+  ${s+gb} -------------------[${gr+gs} Mysterious Puzzle Guardian ${gr+gb}]------------------ ${gb+s}
+  ${gd}                                                                     ${gd}
+  ${gd+gt}  You\'re just in time! The Historians will compile today's results   ${gr+gd}
+  ${gd+gt}  for you now!                                                       ${gr+gd}
+  ${gd}                                                                     ${gd}
+  ${s+gb} ------------------------------------------------------------------- ${gb+s}`)
 }
 
 // exec puzzle scripts
