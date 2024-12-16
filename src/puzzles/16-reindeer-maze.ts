@@ -4,12 +4,12 @@ import { CardinalOrientation, Vector2 } from "@/aoc-toolbox/types";
 import { ORIENTATIONS, pointFromIndex } from "@/aoc-toolbox/math-utils";
 import { dgr, dre, dnl, dnr, ddl, dt, ddr, s, dsept, dsepb, dpl, dpa, dph, dul, dur } from "@/aoc-toolbox/pretty-print";
 
-type MazeCrossing = { north: MazeCrossing, east: MazeCrossing, south: MazeCrossing, west: MazeCrossing, depth: number }
+type MazeNode = { north: MazeNode, east: MazeNode, south: MazeNode, west: MazeNode, weight: number }
 
 export default class Puzzle16 extends BasePuzzle {
 
   private maze!: string[]
-  private mazeGraph!: MazeCrossing
+  private mazeGraph!: MazeNode
   private startPoint!: Vector2
   private endPoint!: Vector2
 
