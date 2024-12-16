@@ -95,6 +95,9 @@ export function pairs(arr: any[]) {
     )
   )
 }
+export function minOf(arr: number[]) {
+  return Math.min(...arr)
+}
 
 // ------------------------------------------------------------------------------------------------
 // MATRIX OPERATIONS

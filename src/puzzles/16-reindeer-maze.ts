@@ -1,10 +1,10 @@
-import { setCharAt } from "@toolbox/utils";
+import { deepClone, setCharAt } from "@toolbox/utils";
 import { BasePuzzle } from "./base-puzzle";
 import { CardinalOrientation, Vector2 } from "@/aoc-toolbox/types";
 import { ORIENTATIONS, pointFromIndex } from "@/aoc-toolbox/math-utils";
 import { dgr, dre, dnl, dnr, ddl, dt, ddr, s, dsept, dsepb, dpl, dpa, dph, dul, dur } from "@/aoc-toolbox/pretty-print";
 
-type MazeNode = { north: MazeNode, east: MazeNode, south: MazeNode, west: MazeNode, weight: number }
+type MazeNode = { north?: MazeNode, east?: MazeNode, south?: MazeNode, west?: MazeNode }
 
 export default class Puzzle16 extends BasePuzzle {
 
@@ -39,8 +39,10 @@ export default class Puzzle16 extends BasePuzzle {
   }
 
   protected partOne(): number {
-    let curOrientation: CardinalOrientation = CardinalOrientation.EAST
-    return 0
+    let finalScores: number[] = []
+    this.scanAndMove(this.maze, this.startPoint, CardinalOrientation.EAST, 0, finalScores)
+    console.log(finalScores)
+    return Math.min(...finalScores)
   }
 
   protected partTwo(): number {
@@ -49,21 +51,26 @@ export default class Puzzle16 extends BasePuzzle {
 
   // ----------------------------------------------------------------------------------------------
 
-  private scanAndMove(curPos: Vector2, orientation: CardinalOrientation, score: number, finalScores: number[]): void {
-    let tiles = this.checkAdjacentTiles(curPos, orientation)
-    if (this.countPaths(tiles) === 0) {
-      return
-    }
-    if (this.maze[curPos.y][curPos.x] === 'E') {
+  private scanAndMove(maze: string[], curPos: Vector2, orientation: CardinalOrientation, score: number, finalScores: number[]): void {
+    if (score >= Math.min(...finalScores)) return
+    if (maze[curPos.y][curPos.x] === 'E') {
       finalScores.push(score)
       return
     }
 
-    this.maze[curPos.y] = setCharAt(this.maze[curPos.y], curPos.x, 'X') // mark as visited with an X
+    let tiles = this.checkAdjacentTiles(maze, curPos, orientation)
+    if (this.countPaths(tiles) === 0) return
+
+    maze[curPos.y] = setCharAt(maze[curPos.y], curPos.x, 'X') // mark as visited with an X
     tiles.forEach((t, i) => {
       if (t === 0) return
-      if (ORIENTATIONS[i] !== orientation) score += 1000
-      setTimeout(() => this.scanAndMove(pointFromIndex(curPos, i), ORIENTATIONS[i], score+1, finalScores), 0)
+      this.scanAndMove(
+        deepClone(maze),
+        pointFromIndex(curPos, i),
+        ORIENTATIONS[i],
+        score + (ORIENTATIONS[i] === orientation ? 1 : 1001),
+        finalScores
+      )
     })
   }
 
@@ -71,12 +78,12 @@ export default class Puzzle16 extends BasePuzzle {
     return tiles.filter(t => t === 1).length
   }
 
-  private checkAdjacentTiles(pos: Vector2, orientation?: CardinalOrientation): number[] {
+  private checkAdjacentTiles(maze: string[], pos: Vector2, orientation?: CardinalOrientation): number[] {
     let tiles: number[] = [0,0,0,0]
-    if (!(['#','X'].includes(this.maze[pos.y-1][pos.x]))) tiles[0] = 1
-    if (!(['#','X'].includes(this.maze[pos.y][pos.x+1]))) tiles[1] = 1
-    if (!(['#','X'].includes(this.maze[pos.y+1][pos.x]))) tiles[2] = 1
-    if (!(['#','X'].includes(this.maze[pos.y][pos.x-1]))) tiles[3] = 1
+    if (!(['#','X'].includes(maze[pos.y-1][pos.x]))) tiles[0] = 1
+    if (!(['#','X'].includes(maze[pos.y][pos.x+1]))) tiles[1] = 1
+    if (!(['#','X'].includes(maze[pos.y+1][pos.x]))) tiles[2] = 1
+    if (!(['#','X'].includes(maze[pos.y][pos.x-1]))) tiles[3] = 1
 
     // block paths that are "before" the given position (e.g. if orientation is NORTH, then SOUTH is blocked, etc)
     if(orientation) {
@@ -88,14 +95,5 @@ export default class Puzzle16 extends BasePuzzle {
       }
     }
     return tiles
-  }
-
-  private indexToOrientation(t: 0|1|2|3): CardinalOrientation {
-    switch (t) {
-      case 0: return CardinalOrientation.NORTH
-      case 1: return CardinalOrientation.EAST
-      case 2: return CardinalOrientation.SOUTH
-      case 3: return CardinalOrientation.WEST
-    }
   }
 }
