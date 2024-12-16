@@ -1,9 +1,13 @@
-import type { Matrix2, Vector2 } from "./types"
+import { CardinalOrientation, Matrix2, Vector2 } from "./types"
 
 // ------------------------------------------------------------------------------------------------
 // POINT OPERATIONS
 
 export const VEC2_ZERO = { x:0, y: 0 }
+export const ORIENTATIONS = [
+  CardinalOrientation.NORTH, CardinalOrientation.EAST,
+  CardinalOrientation.SOUTH, CardinalOrientation.WEST
+]
 
 export function clonePoint(p: Vector2) {
   return { x: p.x, y: p.y }
@@ -39,6 +43,24 @@ export function pointPairs(arr: Vector2[]): Vector2[][] {
       (ai > bi) ? [[a,b]] : []
     )
   )
+}
+
+export function pointFromIndex(pos: Vector2, n: number) {
+  switch (n) {
+    case 0: return { x: pos.x, y: pos.y-1 }
+    case 1: return { x: pos.x+1, y: pos.y }
+    case 2: return { x: pos.x, y: pos.y+1 }
+    case 3: return { x: pos.x-1, y: pos.y }
+  }
+  throw new Error('Cannot get point: index must be 0, 1, 2 or 3')
+}
+export function pointFromOrientation(pos: Vector2, orientation: CardinalOrientation) {
+  switch (orientation) {
+    case CardinalOrientation.NORTH: return { x: pos.x, y: pos.y-1 }
+    case CardinalOrientation.EAST:  return { x: pos.x+1, y: pos.y }
+    case CardinalOrientation.SOUTH: return { x: pos.x, y: pos.y+1 }
+    case CardinalOrientation.WEST:  return { x: pos.x-1, y: pos.y }
+  }
 }
 
 // ------------------------------------------------------------------------------------------------
