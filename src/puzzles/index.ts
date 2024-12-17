@@ -14,6 +14,7 @@ import Puzzle13 from "./13-claw-contraption";
 import Puzzle14 from "./14-restroom-redoubt";
 import Puzzle15 from "./15-warehouse-woes";
 import Puzzle16 from "./16-reindeer-maze";
+import Puzzle17 from "./17-chronospatial-computer";
 
 export default [
     new Puzzle1(),
@@ -31,5 +32,6 @@ export default [
     new Puzzle13(),
     new Puzzle14(),
     new Puzzle15(),
-    new Puzzle16()
+    new Puzzle16(),
+    new Puzzle17(),
 ]

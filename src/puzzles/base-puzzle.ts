@@ -24,6 +24,6 @@ export abstract class BasePuzzle {
   }
 
   public abstract run(): void
-  protected abstract partOne(): number
-  protected abstract partTwo(): number
+  protected abstract partOne(): number|string
+  protected abstract partTwo(): number|string
 }

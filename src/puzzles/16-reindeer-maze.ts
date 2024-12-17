@@ -41,7 +41,7 @@ export default class Puzzle16 extends BasePuzzle {
   protected partOne(): number {
     let finalScores: number[] = []
     this.scanAndMove(this.maze, this.startPoint, CardinalOrientation.EAST, 0, finalScores)
-    console.log(finalScores)
+    //console.log(finalScores)
     return Math.min(...finalScores)
   }
 

@@ -26,8 +26,8 @@ export function concatInts(a: number, b: number) {
   return parseInt(a.toString() + b.toString())
 }
 
-export function formatAnswer(n: number) {
-  return numPadEnd(n, 38, ' ');
+export function formatAnswer(n: number|string) {
+  return typeof n === 'number' ? numPadEnd(n, 38, ' ') : n.padEnd(38, ' ');
 }
 
 // --------------------------------------------------------------------------------------------------------------------
